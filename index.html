@@ -96,6 +96,33 @@
     .logo-header {
       filter: drop-shadow(0 2px 8px rgba(0,0,0,0.06));
     }
+    /* Marcador de ventas promedio en las barras */
+    .slider-promedio-marker {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 3px;
+      height: 18px;
+      border-radius: 2px;
+      background: #f59e0b;
+      pointer-events: none;
+      z-index: 1;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.8);
+    }
+    .slider-promedio-marker::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      transform: translateX(-50%);
+      margin-bottom: 4px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #b45309;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
   </style>
 </head>
 <body class="min-h-screen font-sans text-trust-700 antialiased" style="background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);">
@@ -137,6 +164,12 @@
       <div class="mt-3 rounded-2xl overflow-hidden shadow-lg border border-trust-100 bg-white/80 max-w-2xl mx-auto">
         <img src="assets/menu.png" alt="Menú María Chorizos - Chorizo Santarrosano, productos y para llevar" class="w-full h-auto object-contain" />
       </div>
+      <div class="mt-4 max-w-2xl mx-auto flex items-center gap-3 rounded-xl border-2 border-calm-200 bg-calm-50/80 px-4 py-3 text-sm text-trust-700">
+        <span class="flex-shrink-0 w-10 h-10 rounded-lg bg-calm-100 border border-calm-200 flex items-center justify-center text-calm-600" aria-hidden="true">
+          <i class="fas fa-sync-alt"></i>
+        </span>
+        <p class="font-medium">Estos promedios son sincronizados en tiempo real con el software de ventas con el que deben registrar los puntos de venta.</p>
+      </div>
     </header>
 
     <div class="grid md:grid-cols-2 gap-6 lg:gap-10 items-start">
@@ -160,7 +193,7 @@
         </p>
         <p class="text-xs text-trust-500 mb-2">Ajusta la barra para estimar cuántas unidades vendes al día.</p>
         <div id="nota-promedio" class="rounded-lg bg-calm-50/80 border border-calm-200/60 p-3 mb-4 text-xs text-trust-600">
-          <strong class="text-trust-700">Nota (Franquicia Express):</strong> El promedio diario a nivel nacional está en <strong>40 chorizos con pan</strong>, <strong>50 chorizos con arepa paisa</strong>, <strong>20 combos</strong> arepa de peto con queso y <strong>15 arepas de peto sola</strong> como referencia.
+          <strong class="text-trust-700">Nota (Franquicia Express):</strong> El promedio diario a nivel nacional está en <strong>16 chorizos con pan</strong>, <strong>16 chorizos con arepa paisa</strong>, <strong>15 combos</strong> arepa de peto con queso y <strong>15 arepas de peto sola</strong> como referencia.
         </div>
 
         <!-- Producto 1: Chorizo con pan bimbo -->
@@ -170,12 +203,15 @@
             <div class="min-w-0 flex-1">
               <p class="font-medium text-trust-800">Chorizo con pan bimbo</p>
               <p class="text-sm text-calm-600 font-semibold">$9.000 COP / unidad</p>
-              <p class="text-xs text-trust-500 mt-1">30 a 60 unidades/día</p>
+              <p class="text-xs text-trust-500 mt-1">15 a 40 unidades/día (mín. 5% bajo promedio)</p>
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <input type="range" id="producto-choripan" min="30" max="60" value="40" class="flex-1" />
-            <span id="producto-choripan-value" class="text-calm-600 font-bold w-10 text-right">40</span>
+            <div class="relative flex-1 min-w-0">
+              <input type="range" id="producto-choripan" min="15" max="40" value="16" class="w-full" />
+              <span id="marker-choripan" class="slider-promedio-marker" data-label="Promedio" style="left: 4%;" aria-hidden="true"></span>
+            </div>
+            <span id="producto-choripan-value" class="text-calm-600 font-bold w-10 text-right">16</span>
           </div>
         </div>
 
@@ -186,12 +222,15 @@
             <div class="min-w-0 flex-1">
               <p class="font-medium text-trust-800">Chorizo con arepa</p>
               <p class="text-sm text-calm-600 font-semibold">$9.000 COP / unidad</p>
-              <p class="text-xs text-trust-500 mt-1">30 a 60 unidades/día</p>
+              <p class="text-xs text-trust-500 mt-1">15 a 40 unidades/día (mín. 5% bajo promedio)</p>
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <input type="range" id="producto-arepa" min="30" max="60" value="50" class="flex-1" />
-            <span id="producto-arepa-value" class="text-calm-600 font-bold w-10 text-right">50</span>
+            <div class="relative flex-1 min-w-0">
+              <input type="range" id="producto-arepa" min="15" max="40" value="16" class="w-full" />
+              <span id="marker-arepa" class="slider-promedio-marker" data-label="Promedio" style="left: 4%;" aria-hidden="true"></span>
+            </div>
+            <span id="producto-arepa-value" class="text-calm-600 font-bold w-10 text-right">16</span>
           </div>
         </div>
 
@@ -202,12 +241,15 @@
             <div class="min-w-0 flex-1">
               <p class="font-medium text-trust-800">Chorizo con arepa de peto con queso o queso bocadillo</p>
               <p class="text-sm text-calm-600 font-semibold">$12.000 COP / combo</p>
-              <p class="text-xs text-trust-500 mt-1">Promedio diario: 20 combos. Ajusta la barra según tu estimado.</p>
+              <p class="text-xs text-trust-500 mt-1">Promedio diario: 15 combos. Rango 13 a 30. Ajusta la barra según tu estimado.</p>
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <input type="range" id="producto-peto" min="5" max="40" value="20" class="flex-1" />
-            <span id="producto-peto-value" class="text-calm-600 font-bold w-10 text-right">20</span>
+            <div class="relative flex-1 min-w-0">
+              <input type="range" id="producto-peto" min="13" max="30" value="15" class="w-full" />
+              <span id="marker-peto" class="slider-promedio-marker" data-label="Promedio" style="left: 11.76%;" aria-hidden="true"></span>
+            </div>
+            <span id="producto-peto-value" class="text-calm-600 font-bold w-10 text-right">15</span>
           </div>
         </div>
 
@@ -222,7 +264,10 @@
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <input type="range" id="producto-peto-sola" min="10" max="80" value="15" class="flex-1" />
+            <div class="relative flex-1 min-w-0">
+              <input type="range" id="producto-peto-sola" min="13" max="30" value="15" class="w-full" />
+              <span id="marker-peto-sola" class="slider-promedio-marker" data-label="Promedio" style="left: 11.76%;" aria-hidden="true"></span>
+            </div>
             <span id="producto-peto-sola-value" class="text-calm-600 font-bold w-10 text-right">15</span>
           </div>
         </div>
@@ -233,7 +278,7 @@
           <div id="resumen-ventas-dia" class="text-xs text-trust-600 space-y-1 mb-2">
             <!-- Se rellena por JS -->
           </div>
-          <p id="ventas-total" class="text-base font-bold text-calm-600 mt-2">125 productos al día</p>
+          <p id="ventas-total" class="text-base font-bold text-calm-600 mt-2">62 productos al día</p>
         </div>
 
         <p class="text-sm font-medium text-trust-700 mt-8 mb-3 flex items-center gap-2">
@@ -248,8 +293,8 @@
         </p>
         <div class="space-y-3 mb-4">
           <div class="rounded-xl bg-white border border-trust-100 p-4 shadow-sm">
-            <p class="font-semibold text-trust-800 text-sm mb-2">Margen de utilidad del 55%</p>
-            <p class="text-sm text-trust-600 leading-relaxed">Cada vez que vendes un producto, <strong class="text-serene-green">te quedas con el 55%</strong>; el costo que pagas a la franquicia por insumos es el <strong class="text-trust-700">44%</strong>. Es un margen alto que permite utilidad y retorno de inversión en corto plazo.</p>
+            <p class="font-semibold text-trust-800 text-sm mb-2">Margen de utilidad del 56%</p>
+            <p class="text-sm text-trust-600 leading-relaxed">Cada vez que vendes un producto, <strong class="text-serene-green">te quedas con el 56%</strong>; el costo que pagas a la franquicia por insumos es el <strong class="text-trust-700">44%</strong>. Es un margen alto que permite utilidad y retorno de inversión en corto plazo.</p>
           </div>
           <div class="rounded-xl bg-calm-50 border border-calm-200/60 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
@@ -267,10 +312,10 @@
         <div class="mb-5">
           <div class="flex justify-between items-center mb-1">
             <label for="gasto-arriendo" class="text-sm font-medium text-trust-600">Arriendo (mensual)</label>
-            <span id="gasto-arriendo-value" class="text-calm-600 font-semibold">$3.000.000 COP</span>
+            <span id="gasto-arriendo-value" class="text-calm-600 font-semibold">$2.500.000 COP</span>
           </div>
-          <input type="range" id="gasto-arriendo" min="2500000" max="3500000" step="100000" value="3000000" class="w-full" />
-          <p id="arriendo-rango" class="text-xs text-trust-500 mt-1">Rango de referencia para tu modelo: Express $2.5M – $3.5M</p>
+          <input type="range" id="gasto-arriendo" min="1500000" max="3000000" step="100000" value="2500000" class="w-full" />
+          <p id="arriendo-rango" class="text-xs text-trust-500 mt-1">Rango de referencia para tu modelo: Express $1.5M – $3M (promedio $2.5M)</p>
         </div>
 
         <div class="mb-4">
@@ -339,11 +384,11 @@
           <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
             <p class="text-sm text-trust-500 mb-1">Gasto en insumos (44%)</p>
             <p id="resultado-insumos" class="text-xl font-bold text-trust-700">$9.900.000 COP</p>
-            <p class="text-xs text-trust-400 mt-0.5">Margen bruto 55% (te quedas) · Insumos 44% (pago a franquicia)</p>
+            <p class="text-xs text-trust-400 mt-0.5">Margen bruto 56% (te quedas) · Insumos 44% (pago a franquicia)</p>
           </div>
           <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
             <p class="text-sm text-trust-500 mb-1">Arriendo (mensual)</p>
-            <p id="resultado-arriendo" class="text-xl font-bold text-trust-700">$3.000.000 COP</p>
+            <p id="resultado-arriendo" class="text-xl font-bold text-trust-700">$2.500.000 COP</p>
           </div>
           <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
             <p class="text-sm text-trust-500 mb-1">Servicio de luz (mensual)</p>
@@ -423,8 +468,8 @@
       const formatoCOP = (n) =>
         new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n) + ' COP';
 
-      // Precios alineados con https://mariachorizos.com/franquicias-de-chorizos-en-colombia/
-      // Valorización 0,5% el día 1 y el 16 de cada mes. Fuente editable: precios-franquicias.json
+      // Precios vigentes desde fechaBase. Hoy arrancan: Express $43.915.827, Isla $66.578.521, Local $95.764.795.
+      // Cada 15 días (día 1 y 16 de cada mes) suben automáticamente 0,5%. Fuente: precios-franquicias.json
       var REFERENCIA_FECHA = new Date('2025-03-09T00:00:00');
       var MODELOS = [
         { label: 'Franquicia Express — 2×1 m²', base: 43915827 },
@@ -519,18 +564,18 @@
           .catch(function () {});
       }
 
-      // Promedios: Express (base), Isla (+5%), Local exterior (+10%). Rangos min-max por modelo.
-      var DEFAULTS_EXPRESS = { choripan: 40, arepa: 50, peto: 20, petoSola: 15 };
-      var DEFAULTS_ISLA = { choripan: 42, arepa: 53, peto: 21, petoSola: 16 };
-      var DEFAULTS_LOCAL = { choripan: 44, arepa: 55, peto: 22, petoSola: 17 };
-      var RANGOS_EXPRESS = { choripan: [30, 60], arepa: [30, 60], peto: [5, 40], petoSola: [10, 80] };
-      var RANGOS_ISLA = { choripan: [32, 63], arepa: [32, 63], peto: [5, 42], petoSola: [11, 84] };
-      var RANGOS_LOCAL = { choripan: [33, 66], arepa: [33, 66], peto: [6, 44], petoSola: [11, 88] };
-      var NOTA_EXPRESS = '<strong class="text-trust-700">Nota (Franquicia Express):</strong> El promedio diario a nivel nacional está en <strong>40 chorizos con pan</strong>, <strong>50 chorizos con arepa paisa</strong>, <strong>20 combos</strong> arepa de peto con queso y <strong>15 arepas de peto sola</strong> como referencia.';
-      var NOTA_ISLA = '<strong class="text-trust-700">Nota (Franquicia Isla):</strong> En modelo Isla el promedio diario de ventas es aproximadamente <strong>5% superior</strong> por mayor afluencia. Valores de referencia: <strong>42</strong> chorizos con pan, <strong>53</strong> chorizos con arepa paisa, <strong>21</strong> combos arepa de peto con queso, <strong>16</strong> arepas de peto sola.';
-      var NOTA_LOCAL = '<strong class="text-trust-700">Nota (Local exterior):</strong> En local de 30 a 50 m² el promedio diario de ventas es aproximadamente <strong>10% superior</strong> a una Express. Valores de referencia: <strong>44</strong> chorizos con pan, <strong>55</strong> chorizos con arepa paisa, <strong>22</strong> combos arepa de peto con queso, <strong>17</strong> arepas de peto sola.';
+      // Promedios: Express (referencia), Isla +40%, Local +30%. Isla: mínimos 5% por debajo del promedio Isla.
+      var DEFAULTS_EXPRESS = { choripan: 16, arepa: 16, peto: 15, petoSola: 15 };
+      var DEFAULTS_ISLA = { choripan: 22, arepa: 22, peto: 21, petoSola: 21 };
+      var DEFAULTS_LOCAL = { choripan: 21, arepa: 21, peto: 20, petoSola: 20 };
+      var RANGOS_EXPRESS = { choripan: [15, 40], arepa: [15, 40], peto: [13, 30], petoSola: [13, 30] };
+      var RANGOS_ISLA = { choripan: [21, 40], arepa: [21, 40], peto: [20, 30], petoSola: [20, 30] };
+      var RANGOS_LOCAL = { choripan: [16, 40], arepa: [16, 40], peto: [13, 30], petoSola: [13, 30] };
+      var NOTA_EXPRESS = '<strong class="text-trust-700">Nota (Franquicia Express):</strong> El promedio diario a nivel nacional está en <strong>16 chorizos con pan</strong>, <strong>16 chorizos con arepa paisa</strong>, <strong>15 combos</strong> arepa de peto con queso y <strong>15 arepas de peto sola</strong>. Mínimos 5% por debajo del promedio en chorizo con pan y con arepa.';
+      var NOTA_ISLA = '<strong class="text-trust-700">Nota (Franquicia Isla):</strong> En modelo Isla el promedio diario de ventas es aproximadamente <strong>40% superior</strong> por mayor afluencia. Mínimos 5% por debajo del promedio. Valores de referencia: <strong>22</strong> chorizos con pan, <strong>22</strong> chorizos con arepa paisa, <strong>21</strong> combos arepa de peto con queso, <strong>21</strong> arepas de peto sola.';
+      var NOTA_LOCAL = '<strong class="text-trust-700">Nota (Local exterior):</strong> En local de 30 a 50 m² el promedio diario de ventas es aproximadamente <strong>30% superior</strong> a una Express. Valores de referencia: <strong>21</strong> chorizos con pan, <strong>21</strong> chorizos con arepa paisa, <strong>20</strong> combos arepa de peto con queso, <strong>20</strong> arepas de peto sola.';
 
-      var ARRIENDO_EXPRESS = { min: 2500000, max: 3500000, value: 3000000, label: 'Rango de referencia para tu modelo: Express $2.5M – $3.5M' };
+      var ARRIENDO_EXPRESS = { min: 1500000, max: 3000000, value: 2500000, label: 'Rango de referencia para tu modelo: Express $1.5M – $3M (promedio $2.5M)' };
       var ARRIENDO_ISLA = { min: 4500000, max: 6000000, value: 5250000, label: 'Rango de referencia para tu modelo: Isla $4.5M – $6M' };
       var ARRIENDO_LOCAL = { min: 3000000, max: 5000000, value: 4000000, label: 'Rango de referencia para tu modelo: Local exterior $3M – $5M' };
 
@@ -560,6 +605,15 @@
         productoPetoValue.textContent = d.peto;
         productoPetoSolaValue.textContent = d.petoSola;
         notaPromedioEl.innerHTML = nota;
+
+        function pctPromedio(min, max, promedio) {
+          if (max === min) return 50;
+          return ((promedio - min) / (max - min)) * 100;
+        }
+        document.getElementById('marker-choripan').style.left = pctPromedio(r.choripan[0], r.choripan[1], d.choripan) + '%';
+        document.getElementById('marker-arepa').style.left = pctPromedio(r.arepa[0], r.arepa[1], d.arepa) + '%';
+        document.getElementById('marker-peto').style.left = pctPromedio(r.peto[0], r.peto[1], d.peto) + '%';
+        document.getElementById('marker-peto-sola').style.left = pctPromedio(r.petoSola[0], r.petoSola[1], d.petoSola) + '%';
 
         var arr = (idx === 1) ? ARRIENDO_ISLA : (idx === 2) ? ARRIENDO_LOCAL : ARRIENDO_EXPRESS;
         gastoArriendo.min = arr.min;
