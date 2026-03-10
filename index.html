@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador de Rentabilidad | María Chorizos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#C41E3A',
+              'red-dark': '#9E1830',
+              'red-light': '#E8A0A8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: #f3f4f6;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #C41E3A;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(196, 30, 58, 0.4);
+      transition: transform 0.15s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.08);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #C41E3A;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 6px rgba(196, 30, 58, 0.4);
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-800 antialiased">
+  <div class="max-w-6xl mx-auto px-4 py-8 md:py-12">
+    <!-- Header -->
+    <header class="text-center mb-8 md:mb-12">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+        <span class="text-brand-red">María Chorizos</span> · Simulador de Rentabilidad
+      </h1>
+      <p class="text-gray-600 text-sm md:text-base">Estima tu retorno de inversión en segundos</p>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
+      <!-- Columna Izquierda: Controles -->
+      <section class="bg-white rounded-2xl shadow-lg shadow-gray-200/80 p-6 md:p-8 border border-gray-100">
+        <h2 class="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2">
+          <i class="fas fa-sliders-h text-brand-red"></i>
+          Parámetros del negocio
+        </h2>
+
+        <!-- Modelo de franquicia -->
+        <div class="mb-8">
+          <label for="modelo" class="block text-sm font-medium text-gray-700 mb-2">Modelo de franquicia</label>
+          <select id="modelo" class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-800 focus:ring-2 focus:ring-brand-red focus:border-brand-red transition outline-none">
+            <option value="15000000">Inversión $15.000.000</option>
+            <option value="25000000">Inversión $25.000.000</option>
+            <option value="35000000">Inversión $35.000.000</option>
+          </select>
+        </div>
+
+        <!-- Ventas diarias -->
+        <div class="mb-8">
+          <div class="flex justify-between items-center mb-2">
+            <label for="ventas" class="text-sm font-medium text-gray-700">Ventas diarias</label>
+            <span id="ventas-value" class="text-brand-red font-semibold">50</span>
+          </div>
+          <input type="range" id="ventas" min="10" max="200" value="50" class="w-full" />
+        </div>
+
+        <!-- Ticket promedio -->
+        <div class="mb-6">
+          <div class="flex justify-between items-center mb-2">
+            <label for="ticket" class="text-sm font-medium text-gray-700">Ticket promedio (COP)</label>
+            <span id="ticket-value" class="text-brand-red font-semibold">$15.000</span>
+          </div>
+          <input type="range" id="ticket" min="5000" max="50000" step="1000" value="15000" class="w-full" />
+        </div>
+      </section>
+
+      <!-- Columna Derecha: Resultados -->
+      <section class="bg-white rounded-2xl shadow-lg shadow-gray-200/80 p-6 md:p-8 border border-gray-100">
+        <h2 class="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2">
+          <i class="fas fa-chart-line text-brand-red"></i>
+          Resultados en tiempo real
+        </h2>
+
+        <div class="space-y-4">
+          <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
+            <p class="text-sm text-gray-500 mb-1">Ingresos Brutos (mensual)</p>
+            <p id="ingresos" class="text-xl font-bold text-gray-900">$22.500.000</p>
+          </div>
+          <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
+            <p class="text-sm text-gray-500 mb-1">Costos Operativos (65%)</p>
+            <p id="costos" class="text-xl font-bold text-gray-800">$14.625.000</p>
+          </div>
+          <div class="rounded-xl bg-emerald-50 border border-emerald-100 p-4 ring-2 ring-emerald-200/50">
+            <p class="text-sm text-emerald-700 mb-1">Utilidad Neta Estimada (mensual)</p>
+            <p id="utilidad" class="text-2xl font-bold text-emerald-700">$7.875.000</p>
+          </div>
+          <div class="rounded-xl bg-brand-red/5 border border-brand-red/20 p-4">
+            <p class="text-sm text-brand-red-dark mb-1">Retorno de Inversión (ROI)</p>
+            <p id="roi" class="text-2xl font-bold text-brand-red">~2 meses</p>
+          </div>
+        </div>
+
+        <a href="#" id="cta-llamada" class="mt-8 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-brand-red hover:bg-brand-red-dark text-white font-semibold py-4 px-6 shadow-lg shadow-brand-red/25 transition hover:shadow-xl hover:shadow-brand-red/30">
+          <i class="fas fa-phone-alt"></i>
+          Agendar Llamada
+        </a>
+      </section>
+    </div>
+
+    <p class="text-center text-gray-400 text-xs mt-8">* Cálculos orientativos. Los resultados reales pueden variar según ubicación y operación.</p>
+  </div>
+
+  <script>
+    (function () {
+      const formatoCOP = (n) =>
+        new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n);
+
+      const modelo = document.getElementById('modelo');
+      const ventas = document.getElementById('ventas');
+      const ticket = document.getElementById('ticket');
+      const ventasValue = document.getElementById('ventas-value');
+      const ticketValue = document.getElementById('ticket-value');
+      const ingresosEl = document.getElementById('ingresos');
+      const costosEl = document.getElementById('costos');
+      const utilidadEl = document.getElementById('utilidad');
+      const roiEl = document.getElementById('roi');
+
+      function actualizar() {
+        const inversion = Number(modelo.value);
+        const ventasDia = Number(ventas.value);
+        const ticketPromedio = Number(ticket.value);
+
+        ventasValue.textContent = ventasDia;
+        ticketValue.textContent = formatoCOP(ticketPromedio);
+
+        const ingresosBrutos = ventasDia * ticketPromedio * 30;
+        const costosOperativos = Math.round(ingresosBrutos * 0.65);
+        const utilidadNeta = ingresosBrutos - costosOperativos;
+        const roiMeses = utilidadNeta > 0 ? (inversion / utilidadNeta).toFixed(1) : '—';
+
+        ingresosEl.textContent = formatoCOP(ingresosBrutos);
+        costosEl.textContent = formatoCOP(costosOperativos);
+        utilidadEl.textContent = formatoCOP(utilidadNeta);
+        roiEl.textContent = roiMeses === '—' ? '—' : '~' + roiMeses + ' meses';
+      }
+
+      modelo.addEventListener('change', actualizar);
+      ventas.addEventListener('input', actualizar);
+      ticket.addEventListener('input', actualizar);
+
+      actualizar();
+    })();
+  </script>
+</body>
+</html>
