@@ -148,7 +148,10 @@
           <i class="fas fa-shopping-basket text-calm-500"></i>
           Productos que vendes (ventas diarias)
         </p>
-        <p class="text-xs text-trust-500 mb-4">Ajusta la barra para estimar cuántas unidades vendes al día.</p>
+        <p class="text-xs text-trust-500 mb-2">Ajusta la barra para estimar cuántas unidades vendes al día.</p>
+        <div class="rounded-lg bg-calm-50/80 border border-calm-200/60 p-3 mb-4 text-xs text-trust-600">
+          <strong class="text-trust-700">Nota:</strong> El promedio diario actual a nivel nacional está en <strong>40 chorizos con pan</strong> y <strong>50 chorizos con arepa paisa</strong> como valor de referencia para sus cálculos.
+        </div>
 
         <!-- Producto 1: Chorizo con pan bimbo -->
         <div class="mb-6 p-4 rounded-xl bg-trust-50/80 border border-trust-100">
@@ -157,12 +160,12 @@
             <div class="min-w-0 flex-1">
               <p class="font-medium text-trust-800">Chorizo con pan bimbo</p>
               <p class="text-sm text-calm-600 font-semibold">$9.000 COP / unidad</p>
-              <p class="text-xs text-trust-500 mt-1">60 a 150 unidades/día</p>
+              <p class="text-xs text-trust-500 mt-1">30 a 60 unidades/día</p>
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <input type="range" id="producto-choripan" min="60" max="150" value="100" class="flex-1" />
-            <span id="producto-choripan-value" class="text-calm-600 font-bold w-10 text-right">100</span>
+            <input type="range" id="producto-choripan" min="30" max="60" value="40" class="flex-1" />
+            <span id="producto-choripan-value" class="text-calm-600 font-bold w-10 text-right">40</span>
           </div>
         </div>
 
@@ -173,18 +176,18 @@
             <div class="min-w-0 flex-1">
               <p class="font-medium text-trust-800">Chorizo con arepa</p>
               <p class="text-sm text-calm-600 font-semibold">$9.000 COP / unidad</p>
-              <p class="text-xs text-trust-500 mt-1">60 a 150 unidades/día</p>
+              <p class="text-xs text-trust-500 mt-1">30 a 60 unidades/día</p>
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <input type="range" id="producto-arepa" min="60" max="150" value="90" class="flex-1" />
-            <span id="producto-arepa-value" class="text-calm-600 font-bold w-10 text-right">90</span>
+            <input type="range" id="producto-arepa" min="30" max="60" value="50" class="flex-1" />
+            <span id="producto-arepa-value" class="text-calm-600 font-bold w-10 text-right">50</span>
           </div>
         </div>
 
         <div class="rounded-xl bg-calm-50 border border-calm-200/60 p-3 text-center">
           <p class="text-xs text-trust-500">Ventas diarias totales</p>
-          <p id="ventas-total" class="text-lg font-bold text-calm-600">190 unidades</p>
+          <p id="ventas-total" class="text-lg font-bold text-calm-600">90 unidades</p>
         </div>
       </section>
 
