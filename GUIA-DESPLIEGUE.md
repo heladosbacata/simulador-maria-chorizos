@@ -79,41 +79,39 @@ Doble clic en `index.html` o arrástralo al navegador. Funciona, pero sin “ser
 
 ---
 
-## Parte 3: Desplegar en Vercel
+## Parte 3: Desplegar en Vercel (y que se actualice en cada push)
 
-### 3.1 Cuenta e instalación (opcional)
+### 3.1 Conectar el repo de GitHub
 
-1. Entra en [vercel.com](https://vercel.com) y regístrate (puedes usar **"Continue with GitHub"**).
-2. (Opcional) Instalar CLI para desplegar desde la terminal:
-   ```bash
-   npm i -g vercel
-   ```
-
-### 3.2 Conectar el repo de GitHub (recomendado)
-
-1. En Vercel: **Add New…** → **Project**.
-2. **Import Git Repository** → conecta GitHub si no lo has hecho.
-3. Elige el repo `simulador-maria-chorizos` (o el nombre que hayas usado).
+1. Entra en [vercel.com](https://vercel.com) e inicia sesión con **GitHub**.
+2. **Add New…** → **Project**.
+3. **Import Git Repository** → selecciona `heladosbacata/simulador-maria-chorizos` (o tu repo).
 4. **Configure Project:**
-   - **Framework Preset:** Other (o no cambiar nada).
-   - **Root Directory:** `.` (dejar por defecto).
-   - **Build Command:** vacío (no hay build).
-   - **Output Directory:** vacío o `.` (Vercel sirve los archivos estáticos).
-5. Clic en **Deploy**.
+   - **Framework Preset:** Other.
+   - **Root Directory:** `.`
+   - **Build Command:** vacío.
+   - **Output Directory:** `.` (o vacío).
+5. **Deploy**.
 
-En unos segundos tendrás una URL tipo:  
-`https://simulador-maria-chorizos-xxx.vercel.app`.
+### 3.2 Deploy automático en cada commit + push
 
-### 3.3 Despliegue desde la terminal (alternativa)
+Cuando el proyecto está **conectado a GitHub**, Vercel hace un **deploy nuevo cada vez que haces push** a la rama que tengas configurada (normalmente `main`).
 
-Con la CLI instalada, dentro del proyecto:
+- Cada `git push origin main` → Vercel detecta el cambio y vuelve a desplegar.
+- No hace falta hacer nada en Vercel: solo commit + push desde tu máquina.
+- Puedes ver el estado de cada deploy en el dashboard del proyecto en Vercel.
+
+Si no se actualiza al hacer push, revisa en Vercel: **Project → Settings → Git** que el repositorio conectado sea el correcto y que la rama de producción sea `main`.
+
+### 3.3 Despliegue desde la terminal (opcional)
+
+Si prefieres desplegar sin GitHub:
 
 ```bash
+npm i -g vercel
 cd /Users/mac/Desktop/simulador-franquicias
 vercel
 ```
-
-Sigue las preguntas (login si hace falta, nombre del proyecto, etc.). Al final te dará la URL del despliegue.
 
 ---
 
