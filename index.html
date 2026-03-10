@@ -227,9 +227,13 @@
           </div>
         </div>
 
-        <div class="rounded-xl bg-calm-50 border border-calm-200/60 p-3 text-center">
-          <p class="text-xs text-trust-500">Ventas diarias totales</p>
-          <p id="ventas-total" class="text-lg font-bold text-calm-600">125 unidades</p>
+        <div class="rounded-xl bg-calm-50 border border-calm-200/60 p-4 text-center">
+          <p class="text-xs font-semibold text-calm-700 uppercase tracking-wide mb-2">✨ Tu día a día en el punto</p>
+          <p class="text-xs text-trust-600 mb-2">Así podría verse lo que vendes cada día. Ajusta las barras y descubre tu potencial.</p>
+          <div id="resumen-ventas-dia" class="text-xs text-trust-600 space-y-1 mb-2">
+            <!-- Se rellena por JS -->
+          </div>
+          <p id="ventas-total" class="text-base font-bold text-calm-600 mt-2">125 productos al día</p>
         </div>
 
         <p class="text-sm font-medium text-trust-700 mt-8 mb-3 flex items-center gap-2">
@@ -259,6 +263,41 @@
           <input type="range" id="gasto-luz" min="0" max="300000" step="10000" value="0" class="w-full" />
           <p class="text-xs text-trust-400 mt-1">En islas de C.C. el 90% no cobra luz (incluida en arriendo). Ajuste si su centro sí la cobra (0 – $300.000).</p>
         </div>
+
+        <div class="mb-4">
+          <div class="flex justify-between items-center mb-1">
+            <label for="gasto-agua" class="text-sm font-medium text-trust-600">Servicio de agua</label>
+            <span id="gasto-agua-value" class="text-calm-600 font-semibold">$0 COP</span>
+          </div>
+          <input type="range" id="gasto-agua" min="0" max="200000" step="10000" value="0" class="w-full" />
+          <p class="text-xs text-trust-400 mt-1">En islas de C.C. suele estar incluido en el arriendo. Ajuste si su centro o local cobra el servicio de agua (0 – $200.000).</p>
+        </div>
+
+        <div class="mb-4">
+          <p class="text-sm font-medium text-trust-600 mb-1">Internet</p>
+          <p class="text-calm-600 font-semibold">$35.000 COP <span class="text-trust-500 font-normal text-xs">/ mes (monto fijo)</span></p>
+          <p class="text-xs text-trust-400 mt-1">Recomendamos adquirir un módem con SIM y pagar solo $35.000; esta capacidad es la necesaria para ver y escuchar la cámara de tu punto de venta y para subir las ventas a través del sistema POS.</p>
+        </div>
+
+        <p class="text-sm font-medium text-trust-700 mt-6 mb-2 flex items-center gap-2">
+          <i class="fas fa-users text-calm-500"></i>
+          Personal del punto de venta
+        </p>
+        <div class="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3 text-xs text-amber-900">
+          <strong>Recomendación:</strong> con ventas entre <strong>15 y 20 millones</strong> al mes se recomienda <strong>1 persona</strong>; de <strong>20 millones en adelante</strong>, <strong>2 personas</strong>. El costo incluye parafiscales en Colombia (prestaciones, seguridad social, caja de compensación, ICBF, SENA — ref. 2026).
+        </div>
+        <p class="text-xs text-trust-500 mb-2">Elige cuántas personas tendrás en tu punto:</p>
+        <div class="flex gap-3 mb-2">
+          <button type="button" id="personal-1" class="personal-btn flex-1 flex flex-col items-center justify-center gap-1 rounded-xl border-2 py-3 px-4 font-semibold transition border-calm-500 bg-calm-100 text-calm-700" data-num="1" aria-pressed="true">
+            <i class="fas fa-user text-2xl text-calm-500"></i>
+            <span>1 persona</span>
+          </button>
+          <button type="button" id="personal-2" class="personal-btn flex-1 flex flex-col items-center justify-center gap-1 rounded-xl border-2 border-trust-200 bg-white py-3 px-4 text-trust-600 font-semibold transition hover:border-calm-400 hover:bg-calm-50" data-num="2" aria-pressed="false">
+            <i class="fas fa-user-friends text-2xl text-trust-400"></i>
+            <span>2 personas</span>
+          </button>
+        </div>
+        <p class="text-xs text-trust-400">Costo mensual por persona (con parafiscales, ref. 2026): <strong id="costo-personal-unit">$2.200.000 COP</strong></p>
       </section>
 
       <!-- Columna Derecha: Resultados -->
@@ -284,6 +323,18 @@
           <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
             <p class="text-sm text-trust-500 mb-1">Servicio de luz (mensual)</p>
             <p id="resultado-luz" class="text-xl font-bold text-trust-700">$0 COP</p>
+          </div>
+          <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
+            <p class="text-sm text-trust-500 mb-1">Servicio de agua (mensual)</p>
+            <p id="resultado-agua" class="text-xl font-bold text-trust-700">$0 COP</p>
+          </div>
+          <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
+            <p class="text-sm text-trust-500 mb-1">Internet (mensual)</p>
+            <p id="resultado-internet" class="text-xl font-bold text-trust-700">$35.000 COP</p>
+          </div>
+          <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
+            <p class="text-sm text-trust-500 mb-1">Personal del punto (mensual)</p>
+            <p id="resultado-personal" class="text-xl font-bold text-trust-700">$2.200.000 COP</p>
           </div>
           <div class="rounded-xl bg-serene-green-light border border-serene-green p-4 ring-2 ring-serene-green">
             <p class="text-sm text-trust-600 mb-1">Utilidad Neta Estimada (mensual)</p>
@@ -359,6 +410,7 @@
       const productoPetoValue = document.getElementById('producto-peto-value');
       const productoPetoSolaValue = document.getElementById('producto-peto-sola-value');
       const ventasTotalEl = document.getElementById('ventas-total');
+      const resumenVentasDiaEl = document.getElementById('resumen-ventas-dia');
       const ingresosEl = document.getElementById('ingresos');
       const costosEl = document.getElementById('costos');
       const utilidadEl = document.getElementById('utilidad');
@@ -367,8 +419,17 @@
       const gastoLuz = document.getElementById('gasto-luz');
       const gastoArriendoValue = document.getElementById('gasto-arriendo-value');
       const gastoLuzValue = document.getElementById('gasto-luz-value');
+      const gastoAgua = document.getElementById('gasto-agua');
+      const gastoAguaValue = document.getElementById('gasto-agua-value');
       const resultadoArriendo = document.getElementById('resultado-arriendo');
       const resultadoLuz = document.getElementById('resultado-luz');
+      const resultadoAgua = document.getElementById('resultado-agua');
+      const resultadoInternet = document.getElementById('resultado-internet');
+      const resultadoPersonal = document.getElementById('resultado-personal');
+
+      const GASTO_INTERNET_FIJO = 35000;
+      var COSTO_POR_TRABAJADOR_MES = 2200000;
+      var numPersonas = 1;
       const arriendoRangoEl = document.getElementById('arriendo-rango');
 
       const PRECIO_CHORIPAN = 9000;
@@ -450,18 +511,28 @@
         productoArepaValue.textContent = qtyArepa;
         productoPetoValue.textContent = qtyPeto;
         productoPetoSolaValue.textContent = qtyPetoSola;
-        ventasTotalEl.textContent = ventasDia + ' unidades';
+        ventasTotalEl.textContent = ventasDia + ' productos al día';
+
+        resumenVentasDiaEl.innerHTML = '<div><strong>Chorizo con pan:</strong> ' + qtyChoripan + '</div>' +
+          '<div><strong>Chorizo con arepa:</strong> ' + qtyArepa + '</div>' +
+          '<div><strong>Combo arepa peto con queso:</strong> ' + qtyPeto + '</div>' +
+          '<div><strong>Arepa de peto sola:</strong> ' + qtyPetoSola + '</div>';
 
         const arriendo = Number(gastoArriendo.value);
         const luz = Number(gastoLuz.value);
+        const agua = Number(gastoAgua.value);
         gastoArriendoValue.textContent = formatoCOP(arriendo);
         gastoLuzValue.textContent = formatoCOP(luz);
+        gastoAguaValue.textContent = formatoCOP(agua);
         resultadoArriendo.textContent = formatoCOP(arriendo);
         resultadoLuz.textContent = formatoCOP(luz);
+        resultadoAgua.textContent = formatoCOP(agua);
+        resultadoInternet.textContent = formatoCOP(GASTO_INTERNET_FIJO);
+        resultadoPersonal.textContent = formatoCOP(numPersonas * COSTO_POR_TRABAJADOR_MES);
 
         const ingresosBrutos = Math.round(ingresosDiarios * 30);
         const costosOperativos = Math.round(ingresosBrutos * 0.65);
-        const utilidadNeta = Math.round(ingresosBrutos - costosOperativos - arriendo - luz);
+        const utilidadNeta = Math.round(ingresosBrutos - costosOperativos - arriendo - luz - agua - GASTO_INTERNET_FIJO - numPersonas * COSTO_POR_TRABAJADOR_MES);
         const roiMeses = utilidadNeta > 0 ? (inversion / utilidadNeta).toFixed(1) : '—';
 
         ingresosEl.textContent = formatoCOP(ingresosBrutos);
@@ -480,6 +551,20 @@
       productoPetoSola.addEventListener('input', actualizar);
       gastoArriendo.addEventListener('input', actualizar);
       gastoLuz.addEventListener('input', actualizar);
+      gastoAgua.addEventListener('input', actualizar);
+
+      document.querySelectorAll('.personal-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          numPersonas = parseInt(this.getAttribute('data-num'), 10);
+          document.querySelectorAll('.personal-btn').forEach(function (b) {
+            var sel = parseInt(b.getAttribute('data-num'), 10) === numPersonas;
+            b.setAttribute('aria-pressed', sel ? 'true' : 'false');
+            b.className = 'personal-btn flex-1 flex flex-col items-center justify-center gap-1 rounded-xl border-2 py-3 px-4 font-semibold transition ' + (sel ? 'border-calm-500 bg-calm-100 text-calm-700' : 'border-trust-200 bg-white text-trust-600 hover:border-calm-400 hover:bg-calm-50');
+            b.querySelector('i').className = 'fas ' + (b.getAttribute('data-num') === '1' ? 'fa-user' : 'fa-user-friends') + ' text-2xl ' + (sel ? 'text-calm-500' : 'text-trust-400');
+          });
+          actualizar();
+        });
+      });
 
       aplicarPromediosPorModelo();
       actualizar();
