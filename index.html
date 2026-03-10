@@ -246,14 +246,18 @@
           <i class="fas fa-box-open text-calm-500"></i>
           Insumos
         </p>
-        <div class="rounded-lg bg-serene-green-light border border-serene-green/30 p-3 mb-4 text-xs text-trust-700">
-          <p class="font-semibold text-serene-green mb-1">Margen de utilidad del 56%</p>
-          <p>Los franquiciados cuentan con un margen realmente alto que permite una utilidad y retorno de inversión en corto plazo. El gasto en insumos equivale al 44% de tus ventas.</p>
-        </div>
-        <div class="rounded-xl bg-trust-50 border border-trust-100 p-3 mb-4">
-          <p class="text-xs text-trust-500 mb-1">Gasto en insumos (mensual)</p>
-          <p id="gasto-insumos-value" class="text-lg font-bold text-calm-600">$0 COP</p>
-          <p class="text-xs text-trust-400 mt-0.5">44% de tus ingresos brutos</p>
+        <div class="space-y-3 mb-4">
+          <div class="rounded-xl bg-white border border-trust-100 p-4 shadow-sm">
+            <p class="font-semibold text-trust-800 text-sm mb-2">Margen de utilidad del 55%</p>
+            <p class="text-sm text-trust-600 leading-relaxed">Cada vez que vendes un producto, <strong class="text-serene-green">te quedas con el 55%</strong>; el costo que pagas a la franquicia por insumos es el <strong class="text-trust-700">44%</strong>. Es un margen alto que permite utilidad y retorno de inversión en corto plazo.</p>
+          </div>
+          <div class="rounded-xl bg-calm-50 border border-calm-200/60 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <p class="text-xs font-medium text-trust-500 uppercase tracking-wide mb-0.5">Gasto en insumos (mensual)</p>
+              <p class="text-xs text-trust-500">44% de ingresos brutos · pago a la franquicia por insumos</p>
+            </div>
+            <p id="gasto-insumos-value" class="text-2xl font-bold text-calm-600 tabular-nums shrink-0">$0 COP</p>
+          </div>
         </div>
 
         <div class="rounded-lg bg-amber-100 border border-amber-200 p-3 mb-4 text-xs text-amber-900">
@@ -293,17 +297,29 @@
           <p class="text-xs text-trust-400 mt-1">Recomendamos adquirir un módem con SIM y pagar solo $35.000; esta capacidad es la necesaria para ver y escuchar la cámara de tu punto de venta y para subir las ventas a través del sistema POS.</p>
         </div>
 
+        <div class="mb-4">
+          <p class="text-sm font-medium text-trust-600 mb-1">Gastos de operación</p>
+          <p class="text-calm-600 font-semibold">$200.000 COP <span class="text-trust-500 font-normal text-xs">/ mes (promedio)</span></p>
+          <p class="text-xs text-trust-400 mt-1">Elementos de aseo y papelería. Valor de referencia mensual.</p>
+        </div>
+
+        <div class="mb-4">
+          <p class="text-sm font-medium text-trust-600 mb-1">Fee mensual de publicidad</p>
+          <p class="text-calm-600 font-semibold">$100.000 COP <span class="text-trust-500 font-normal text-xs">/ mes (fijo)</span></p>
+          <p class="text-xs text-trust-400 mt-1">Con este valor subimos campañas geolocalizadas a 5 km a la redonda de tu punto. Todos los días del mes las personas que pasen o vivan cerca verán que ya no tienen que ir hasta Santarrosa de Cabal a comer el mejor chorizo de Colombia: ahora estamos a pocos km de ti.</p>
+        </div>
+
         <p class="text-sm font-medium text-trust-700 mt-6 mb-2 flex items-center gap-2">
           <i class="fas fa-users text-calm-500"></i>
           Personal del punto de venta
         </p>
         <div class="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3 text-xs text-amber-900">
-          <strong>Según tus ventas (mensual):</strong> de <strong>15 a 20 millones</strong> una sola persona; de <strong>20 a 28 millones</strong> una persona + medio turno; de <strong>28 millones en adelante</strong> dos personas tiempo completo. Costo por persona en Colombia con todo incluido: <strong>$2.744.387 COP</strong>/mes.
+          <strong>Según tus ventas (mensual):</strong> de <strong>0 a 20 millones</strong> una persona + medio turno; de <strong>20 millones en adelante</strong> dos personas tiempo completo. Costo por persona en Colombia con todo incluido: <strong>$2.744.387 COP</strong>/mes.
         </div>
         <div class="rounded-xl bg-trust-50 border border-trust-100 p-3 mb-2">
           <p class="text-xs text-trust-500 mb-1">Recomendación según tu proyección de ventas</p>
-          <p id="personal-scenario-label" class="text-base font-bold text-calm-600">1 persona</p>
-          <p class="text-xs text-trust-400 mt-1">Costo total personal (mensual): <strong id="gasto-personal-total" class="text-trust-700">$2.744.387 COP</strong></p>
+          <p id="personal-scenario-label" class="text-base font-bold text-calm-600">1 persona + medio turno</p>
+          <p class="text-xs text-trust-400 mt-1">Costo total personal (mensual): <strong id="gasto-personal-total" class="text-trust-700">$4.116.581 COP</strong></p>
         </div>
         <p class="text-xs text-trust-400">Costo mensual por persona (todo incluido en Colombia): <strong id="costo-personal-unit">$2.744.387 COP</strong></p>
       </section>
@@ -323,7 +339,7 @@
           <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
             <p class="text-sm text-trust-500 mb-1">Gasto en insumos (44%)</p>
             <p id="resultado-insumos" class="text-xl font-bold text-trust-700">$9.900.000 COP</p>
-            <p class="text-xs text-trust-400 mt-0.5">Margen bruto 56%</p>
+            <p class="text-xs text-trust-400 mt-0.5">Margen bruto 55% (te quedas) · Insumos 44% (pago a franquicia)</p>
           </div>
           <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
             <p class="text-sm text-trust-500 mb-1">Arriendo (mensual)</p>
@@ -343,11 +359,25 @@
           </div>
           <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
             <p class="text-sm text-trust-500 mb-1">Personal del punto (mensual)</p>
-            <p id="resultado-personal" class="text-xl font-bold text-trust-700">$2.744.387 COP</p>
+            <p id="resultado-personal" class="text-xl font-bold text-trust-700">$4.116.581 COP</p>
+          </div>
+          <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
+            <p class="text-sm text-trust-500 mb-1">Gastos de operación (aseo, papelería)</p>
+            <p id="resultado-operacion" class="text-xl font-bold text-trust-700">$200.000 COP</p>
+          </div>
+          <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
+            <p class="text-sm text-trust-500 mb-1">Fee publicidad (mensual)</p>
+            <p id="resultado-publicidad" class="text-xl font-bold text-trust-700">$100.000 COP</p>
+            <p class="text-xs text-trust-400 mt-0.5">Campañas geolocalizadas 5 km a la redonda</p>
           </div>
           <div class="rounded-xl bg-serene-green-light border border-serene-green p-4 ring-2 ring-serene-green">
             <p class="text-sm text-trust-600 mb-1">Utilidad Neta Estimada (mensual)</p>
             <p id="utilidad" class="text-2xl font-bold text-serene-green">$7.875.000 COP</p>
+          </div>
+          <div id="bloque-ebitda" class="rounded-xl bg-calm-50 border border-calm-200/60 p-4 hidden">
+            <p class="text-sm text-calm-700 mb-1">Utilidad EBITDA (mensual)</p>
+            <p id="utilidad-ebitda" class="text-xl font-bold text-calm-600">—</p>
+            <p class="text-xs text-trust-500 mt-1">Ventas &gt; $35M: utilidad neta menos 35% (estimado impuestos/retención)</p>
           </div>
           <div class="rounded-xl bg-calm-50 border border-calm-200/60 p-4">
             <p class="text-sm text-calm-700 mb-1">Retorno de Inversión (ROI)</p>
@@ -355,14 +385,26 @@
           </div>
         </div>
 
-        <a href="#" id="cta-llamada" class="mt-8 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-calm-500 hover:bg-calm-600 text-white font-semibold py-4 px-6 shadow-lg shadow-calm-500/25 transition hover:shadow-xl hover:shadow-calm-500/30">
-          <i class="fas fa-phone-alt"></i>
+        <a href="https://api.whatsapp.com/send?phone=+573152423538&text=Hola,%20Acabo%20de%20revisar%20la%20pagina%20web%20y%20estoy%20interesado%20en%20una%20franquicia%20de%20Maria%20Chorizos." id="cta-llamada" class="mt-8 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-calm-500 hover:bg-calm-600 text-white font-semibold py-4 px-6 shadow-lg shadow-calm-500/25 transition hover:shadow-xl hover:shadow-calm-500/30" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-whatsapp"></i>
           Agendar Llamada
         </a>
       </section>
     </div>
 
     <p class="text-center text-trust-400 text-xs mt-10">* Cálculos orientativos. Los resultados reales pueden variar según ubicación y operación.</p>
+
+    <div class="max-w-3xl mx-auto mt-8 px-4">
+      <div class="rounded-xl bg-trust-50 border border-trust-200 p-4 md:p-5">
+        <h3 class="text-sm font-semibold text-trust-800 mb-2 flex items-center gap-2">
+          <i class="fas fa-question-circle text-calm-500"></i>
+          ¿Puedo operar como persona natural?
+        </h3>
+        <p class="text-sm text-trust-600 leading-relaxed">
+          Sí. Puedes operar tu franquicia como persona natural. Muchos franquiciados lo hacen. Te recomendamos asesorarte con un contador para definir la figura que más te convenga según tu situación y para cumplir con obligaciones tributarias y registrales.
+        </p>
+      </div>
+    </div>
   </div>
 
   <!-- Pie de página: logo a la izquierda -->
@@ -381,7 +423,8 @@
       const formatoCOP = (n) =>
         new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n) + ' COP';
 
-      // Fecha de referencia: día en que rigen los precios base. Suben 0,5% el día 1 y el día 16 de cada mes.
+      // Precios alineados con https://mariachorizos.com/franquicias-de-chorizos-en-colombia/
+      // Valorización 0,5% el día 1 y el 16 de cada mes. Fuente editable: precios-franquicias.json
       var REFERENCIA_FECHA = new Date('2025-03-09T00:00:00');
       var MODELOS = [
         { label: 'Franquicia Express — 2×1 m²', base: 43915827 },
@@ -425,6 +468,8 @@
       const gastoInsumosValueEl = document.getElementById('gasto-insumos-value');
       const utilidadEl = document.getElementById('utilidad');
       const roiEl = document.getElementById('roi');
+      const bloqueEbitda = document.getElementById('bloque-ebitda');
+      const utilidadEbitdaEl = document.getElementById('utilidad-ebitda');
       const gastoArriendo = document.getElementById('gasto-arriendo');
       const gastoLuz = document.getElementById('gasto-luz');
       const gastoArriendoValue = document.getElementById('gasto-arriendo-value');
@@ -440,6 +485,8 @@
       const gastoPersonalTotal = document.getElementById('gasto-personal-total');
 
       const GASTO_INTERNET_FIJO = 35000;
+      const GASTO_OPERACION = 200000;
+      const FEE_PUBLICIDAD = 100000;
       const COSTO_POR_TRABAJADOR_MES = 2744387;
       const arriendoRangoEl = document.getElementById('arriendo-rango');
 
@@ -449,10 +496,28 @@
       const PRECIO_PETO_SOLA = 6000;
 
       // Rellenar select con valores actualizados (orden: Express, Isla, Local exterior)
-      modelo.innerHTML = MODELOS.map(function (m) {
-        const valor = valorActual(m.base);
-        return '<option value="' + valor + '">' + m.label + ' — ' + formatoCOP(valor) + '</option>';
-      }).join('');
+      function rellenarSelectModelos() {
+        modelo.innerHTML = MODELOS.map(function (m) {
+          const valor = valorActual(m.base);
+          return '<option value="' + valor + '">' + m.label + ' — ' + formatoCOP(valor) + '</option>';
+        }).join('');
+      }
+
+      function cargarPreciosDesdeWeb() {
+        return fetch('precios-franquicias.json')
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (data) {
+            if (data && typeof data.express === 'number' && typeof data.isla === 'number' && typeof data.local === 'number') {
+              REFERENCIA_FECHA = data.fechaBase ? new Date(data.fechaBase + 'T00:00:00') : REFERENCIA_FECHA;
+              MODELOS = [
+                { label: 'Franquicia Express — 2×1 m²', base: data.express },
+                { label: 'Franquicia Isla — 2×2 m²', base: data.isla },
+                { label: 'Local exterior — 30 a 50 m²', base: data.local }
+              ];
+            }
+          })
+          .catch(function () {});
+      }
 
       // Promedios: Express (base), Isla (+5%), Local exterior (+10%). Rangos min-max por modelo.
       var DEFAULTS_EXPRESS = { choripan: 40, arepa: 50, peto: 20, petoSola: 15 };
@@ -543,18 +608,15 @@
         const ingresosBrutos = Math.round(ingresosDiarios * 30);
         const gastoInsumos = Math.round(ingresosBrutos * 0.44);
 
-        // Personal según ventas: 15–20 M 1 persona; 20–28 M 1 + medio turno; 28 M+ 2 personas
-        var equivalentePersonas = 1;
-        var personalLabel = '1 persona';
-        if (ingresosBrutos >= 28e6) {
+        // Personal según ventas: 0–20 M → 1 persona + medio turno; 20 M+ → 2 personas
+        var equivalentePersonas = 1.5;
+        var personalLabel = '1 persona + medio turno';
+        if (ingresosBrutos >= 20e6) {
           equivalentePersonas = 2;
           personalLabel = '2 personas tiempo completo';
-        } else if (ingresosBrutos >= 20e6) {
+        } else {
           equivalentePersonas = 1.5;
           personalLabel = '1 persona + medio turno';
-        } else if (ingresosBrutos >= 15e6) {
-          equivalentePersonas = 1;
-          personalLabel = '1 persona';
         }
         const costoPersonal = Math.round(equivalentePersonas * COSTO_POR_TRABAJADOR_MES);
 
@@ -562,13 +624,23 @@
         gastoPersonalTotal.textContent = formatoCOP(costoPersonal);
         resultadoPersonal.textContent = formatoCOP(costoPersonal);
 
-        const utilidadNeta = Math.round(ingresosBrutos - gastoInsumos - arriendo - luz - agua - GASTO_INTERNET_FIJO - costoPersonal);
+        document.getElementById('resultado-operacion').textContent = formatoCOP(GASTO_OPERACION);
+        document.getElementById('resultado-publicidad').textContent = formatoCOP(FEE_PUBLICIDAD);
+
+        const utilidadNeta = Math.round(ingresosBrutos - gastoInsumos - arriendo - luz - agua - GASTO_INTERNET_FIJO - costoPersonal - GASTO_OPERACION - FEE_PUBLICIDAD);
         const roiMeses = utilidadNeta > 0 ? (inversion / utilidadNeta).toFixed(1) : '—';
 
         ingresosEl.textContent = formatoCOP(ingresosBrutos);
         resultadoInsumosEl.textContent = formatoCOP(gastoInsumos);
         gastoInsumosValueEl.textContent = formatoCOP(gastoInsumos);
         utilidadEl.textContent = formatoCOP(utilidadNeta);
+        if (ingresosBrutos >= 35e6) {
+          bloqueEbitda.classList.remove('hidden');
+          const utilidadEbitda = Math.round(utilidadNeta * 0.65);
+          utilidadEbitdaEl.textContent = formatoCOP(utilidadEbitda);
+        } else {
+          bloqueEbitda.classList.add('hidden');
+        }
         roiEl.textContent = roiMeses === '—' ? '—' : '~' + roiMeses + ' meses';
       }
 
@@ -584,8 +656,15 @@
       gastoLuz.addEventListener('input', actualizar);
       gastoAgua.addEventListener('input', actualizar);
 
+      rellenarSelectModelos();
       aplicarPromediosPorModelo();
       actualizar();
+
+      cargarPreciosDesdeWeb().then(function () {
+        rellenarSelectModelos();
+        aplicarPromediosPorModelo();
+        actualizar();
+      });
     })();
   </script>
 </body>
