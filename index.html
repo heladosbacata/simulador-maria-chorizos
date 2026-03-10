@@ -4,19 +4,56 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Simulador de Rentabilidad | María Chorizos</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brand: {
-              red: '#C41E3A',
-              'red-dark': '#9E1830',
-              'red-light': '#E8A0A8',
+            calm: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+            },
+            trust: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+            },
+            serene: {
+              green: '#0d9488',
+              'green-light': '#ccfbf1',
             }
-          }
+          },
+          backgroundColor: {
+            'serene-green-light': '#ccfbf1',
+          },
+          borderColor: {
+            'serene-green': 'rgba(13, 148, 136, 0.2)',
+          },
+          ringColor: {
+            'serene-green': 'rgba(13, 148, 136, 0.15)',
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+          },
         }
       }
     }
@@ -26,143 +63,243 @@
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
-      height: 8px;
-      border-radius: 4px;
-      background: #f3f4f6;
+      height: 10px;
+      border-radius: 5px;
+      background: #e2e8f0;
       outline: none;
     }
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: #C41E3A;
+      background: #0ea5e9;
       cursor: pointer;
-      box-shadow: 0 2px 6px rgba(196, 30, 58, 0.4);
-      transition: transform 0.15s ease;
+      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     input[type="range"]::-webkit-slider-thumb:hover {
-      transform: scale(1.08);
+      transform: scale(1.06);
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.45);
     }
     input[type="range"]::-moz-range-thumb {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: #C41E3A;
+      background: #0ea5e9;
       cursor: pointer;
       border: none;
-      box-shadow: 0 2px 6px rgba(196, 30, 58, 0.4);
+      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
+    }
+    /* Logo con fondo transparente: solo sombra suave */
+    .logo-header {
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.06));
     }
   </style>
 </head>
-<body class="min-h-screen bg-gray-50 text-gray-800 antialiased">
-  <div class="max-w-6xl mx-auto px-4 py-8 md:py-12">
-    <!-- Header -->
-    <header class="text-center mb-8 md:mb-12">
-      <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-        <span class="text-brand-red">María Chorizos</span> · Simulador de Rentabilidad
-      </h1>
-      <p class="text-gray-600 text-sm md:text-base">Estima tu retorno de inversión en segundos</p>
+<body class="min-h-screen font-sans text-trust-700 antialiased" style="background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);">
+  <!-- Logo en esquina superior izquierda -->
+  <div class="fixed top-4 left-4 z-10 md:top-6 md:left-6">
+    <img 
+      src="assets/logo.png" 
+      alt="María Chorizos" 
+      class="logo-header h-14 md:h-16 w-auto object-contain"
+    />
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 py-8 md:py-14">
+    <!-- Header con logo principal: +50% tamaño (fondo transparente) -->
+    <header class="text-center mb-10 md:mb-14">
+      <div class="inline-block px-4 py-2">
+        <img 
+          src="assets/logo.png" 
+          alt="María Chorizos" 
+          class="logo-header h-24 md:h-36 w-auto object-contain mx-auto"
+        />
+      </div>
+      <p class="mt-5 text-trust-600 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+        <span class="inline-block">🥇 El mejor chorizo de Colombia</span>
+        <span class="hidden sm:inline text-trust-300 mx-2">|</span>
+        <span class="inline-block">🌍 Operaciones en 🇨🇴 🇵🇦 🇺🇸</span>
+        <span class="hidden sm:inline text-trust-300 mx-2">|</span>
+        <span class="inline-block">🏢 Una marca del Grupo Empresarial Bacatá.</span>
+      </p>
+      <p class="mt-6 text-trust-600 text-sm md:text-base font-medium tracking-wide">Simulador de Rentabilidad</p>
+      <p class="mt-1 text-trust-500 text-sm">Estima tu retorno de inversión en segundos</p>
     </header>
 
-    <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
+    <div class="grid md:grid-cols-2 gap-6 lg:gap-10 items-start">
       <!-- Columna Izquierda: Controles -->
-      <section class="bg-white rounded-2xl shadow-lg shadow-gray-200/80 p-6 md:p-8 border border-gray-100">
-        <h2 class="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2">
-          <i class="fas fa-sliders-h text-brand-red"></i>
+      <section class="bg-white/90 backdrop-blur rounded-2xl shadow-lg shadow-trust-200/50 p-6 md:p-8 border border-white/80">
+        <h2 class="text-base font-semibold text-trust-800 mb-6 flex items-center gap-2">
+          <i class="fas fa-sliders-h text-calm-500"></i>
           Parámetros del negocio
         </h2>
 
-        <!-- Modelo de franquicia -->
-        <div class="mb-8">
-          <label for="modelo" class="block text-sm font-medium text-gray-700 mb-2">Modelo de franquicia</label>
-          <select id="modelo" class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-800 focus:ring-2 focus:ring-brand-red focus:border-brand-red transition outline-none">
-            <option value="15000000">Inversión $15.000.000</option>
-            <option value="25000000">Inversión $25.000.000</option>
-            <option value="35000000">Inversión $35.000.000</option>
+        <div class="mb-6">
+          <label for="modelo" class="block text-sm font-medium text-trust-600 mb-2">Modelo de franquicia</label>
+          <select id="modelo" class="w-full rounded-xl border border-trust-200 bg-white px-4 py-3 text-trust-800 focus:ring-2 focus:ring-calm-400 focus:border-calm-400 transition outline-none">
+            <!-- Opciones generadas por JS -->
           </select>
         </div>
 
-        <!-- Ventas diarias -->
-        <div class="mb-8">
-          <div class="flex justify-between items-center mb-2">
-            <label for="ventas" class="text-sm font-medium text-gray-700">Ventas diarias</label>
-            <span id="ventas-value" class="text-brand-red font-semibold">50</span>
+        <p class="text-sm font-medium text-trust-700 mb-3 flex items-center gap-2">
+          <i class="fas fa-shopping-basket text-calm-500"></i>
+          Productos que vendes (ventas diarias)
+        </p>
+        <p class="text-xs text-trust-500 mb-4">Ajusta la barra para estimar cuántas unidades vendes al día.</p>
+
+        <!-- Producto 1: Chorizo con pan bimbo -->
+        <div class="mb-6 p-4 rounded-xl bg-trust-50/80 border border-trust-100">
+          <div class="flex gap-3 mb-3">
+            <img src="assets/productos/choripan.png" alt="Chorizo con pan bimbo" class="w-16 h-16 md:w-20 md:h-20 rounded-lg object-cover flex-shrink-0" />
+            <div class="min-w-0 flex-1">
+              <p class="font-medium text-trust-800">Chorizo con pan bimbo</p>
+              <p class="text-sm text-calm-600 font-semibold">$9.000 COP / unidad</p>
+              <p class="text-xs text-trust-500 mt-1">60 a 150 unidades/día</p>
+            </div>
           </div>
-          <input type="range" id="ventas" min="10" max="200" value="50" class="w-full" />
+          <div class="flex items-center gap-3">
+            <input type="range" id="producto-choripan" min="60" max="150" value="100" class="flex-1" />
+            <span id="producto-choripan-value" class="text-calm-600 font-bold w-10 text-right">100</span>
+          </div>
         </div>
 
-        <!-- Ticket promedio -->
-        <div class="mb-6">
-          <div class="flex justify-between items-center mb-2">
-            <label for="ticket" class="text-sm font-medium text-gray-700">Ticket promedio (COP)</label>
-            <span id="ticket-value" class="text-brand-red font-semibold">$15.000</span>
+        <!-- Producto 2: Chorizo con arepa -->
+        <div class="mb-6 p-4 rounded-xl bg-trust-50/80 border border-trust-100">
+          <div class="flex gap-3 mb-3">
+            <img src="assets/productos/chorizo-arepa.png" alt="Chorizo con arepa" class="w-16 h-16 md:w-20 md:h-20 rounded-lg object-cover flex-shrink-0" />
+            <div class="min-w-0 flex-1">
+              <p class="font-medium text-trust-800">Chorizo con arepa</p>
+              <p class="text-sm text-calm-600 font-semibold">$9.000 COP / unidad</p>
+              <p class="text-xs text-trust-500 mt-1">60 a 150 unidades/día</p>
+            </div>
           </div>
-          <input type="range" id="ticket" min="5000" max="50000" step="1000" value="15000" class="w-full" />
+          <div class="flex items-center gap-3">
+            <input type="range" id="producto-arepa" min="60" max="150" value="90" class="flex-1" />
+            <span id="producto-arepa-value" class="text-calm-600 font-bold w-10 text-right">90</span>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-calm-50 border border-calm-200/60 p-3 text-center">
+          <p class="text-xs text-trust-500">Ventas diarias totales</p>
+          <p id="ventas-total" class="text-lg font-bold text-calm-600">190 unidades</p>
         </div>
       </section>
 
       <!-- Columna Derecha: Resultados -->
-      <section class="bg-white rounded-2xl shadow-lg shadow-gray-200/80 p-6 md:p-8 border border-gray-100">
-        <h2 class="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2">
-          <i class="fas fa-chart-line text-brand-red"></i>
+      <section class="bg-white/90 backdrop-blur rounded-2xl shadow-lg shadow-trust-200/50 p-6 md:p-8 border border-white/80">
+        <h2 class="text-base font-semibold text-trust-800 mb-6 flex items-center gap-2">
+          <i class="fas fa-chart-line text-calm-500"></i>
           Resultados en tiempo real
         </h2>
 
         <div class="space-y-4">
-          <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
-            <p class="text-sm text-gray-500 mb-1">Ingresos Brutos (mensual)</p>
-            <p id="ingresos" class="text-xl font-bold text-gray-900">$22.500.000</p>
+          <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
+            <p class="text-sm text-trust-500 mb-1">Ingresos Brutos (mensual)</p>
+            <p id="ingresos" class="text-xl font-bold text-trust-800">$22.500.000 COP</p>
           </div>
-          <div class="rounded-xl bg-gray-50 border border-gray-100 p-4">
-            <p class="text-sm text-gray-500 mb-1">Costos Operativos (65%)</p>
-            <p id="costos" class="text-xl font-bold text-gray-800">$14.625.000</p>
+          <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
+            <p class="text-sm text-trust-500 mb-1">Costos Operativos (65%)</p>
+            <p id="costos" class="text-xl font-bold text-trust-700">$14.625.000 COP</p>
           </div>
-          <div class="rounded-xl bg-emerald-50 border border-emerald-100 p-4 ring-2 ring-emerald-200/50">
-            <p class="text-sm text-emerald-700 mb-1">Utilidad Neta Estimada (mensual)</p>
-            <p id="utilidad" class="text-2xl font-bold text-emerald-700">$7.875.000</p>
+          <div class="rounded-xl bg-serene-green-light border border-serene-green p-4 ring-2 ring-serene-green">
+            <p class="text-sm text-trust-600 mb-1">Utilidad Neta Estimada (mensual)</p>
+            <p id="utilidad" class="text-2xl font-bold text-serene-green">$7.875.000 COP</p>
           </div>
-          <div class="rounded-xl bg-brand-red/5 border border-brand-red/20 p-4">
-            <p class="text-sm text-brand-red-dark mb-1">Retorno de Inversión (ROI)</p>
-            <p id="roi" class="text-2xl font-bold text-brand-red">~2 meses</p>
+          <div class="rounded-xl bg-calm-50 border border-calm-200/60 p-4">
+            <p class="text-sm text-calm-700 mb-1">Retorno de Inversión (ROI)</p>
+            <p id="roi" class="text-2xl font-bold text-calm-600">~2 meses</p>
           </div>
         </div>
 
-        <a href="#" id="cta-llamada" class="mt-8 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-brand-red hover:bg-brand-red-dark text-white font-semibold py-4 px-6 shadow-lg shadow-brand-red/25 transition hover:shadow-xl hover:shadow-brand-red/30">
+        <a href="#" id="cta-llamada" class="mt-8 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-calm-500 hover:bg-calm-600 text-white font-semibold py-4 px-6 shadow-lg shadow-calm-500/25 transition hover:shadow-xl hover:shadow-calm-500/30">
           <i class="fas fa-phone-alt"></i>
           Agendar Llamada
         </a>
       </section>
     </div>
 
-    <p class="text-center text-gray-400 text-xs mt-8">* Cálculos orientativos. Los resultados reales pueden variar según ubicación y operación.</p>
+    <p class="text-center text-trust-400 text-xs mt-10">* Cálculos orientativos. Los resultados reales pueden variar según ubicación y operación.</p>
   </div>
+
+  <!-- Pie de página: logo a la izquierda -->
+  <footer class="max-w-5xl mx-auto px-4 py-6 md:py-8 mt-6 border-t border-trust-200">
+    <div class="flex justify-start">
+      <img 
+        src="assets/logo-footer.png" 
+        alt="María Chorizos" 
+        class="h-12 md:h-14 w-auto object-contain"
+      />
+    </div>
+  </footer>
 
   <script>
     (function () {
       const formatoCOP = (n) =>
-        new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n);
+        new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n) + ' COP';
+
+      // Fecha de referencia: día en que rigen los precios base. Suben 0,5% el día 1 y el día 16 de cada mes.
+      var REFERENCIA_FECHA = new Date('2025-03-09T00:00:00');
+      var MODELOS = [
+        { label: 'Franquicia Express — 2×1 m²', base: 43915827 },
+        { label: 'Franquicia Isla — 2×2 m²', base: 66578521 },
+        { label: 'Local exterior — 30 a 50 m²', base: 95764795 }
+      ];
+
+      function contarPeriodosCambio() {
+        var ref = new Date(REFERENCIA_FECHA.getTime());
+        var hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
+        if (ref >= hoy) return 0;
+        var count = 0;
+        var d = new Date(ref);
+        d.setDate(d.getDate() + 1);
+        while (d <= hoy) {
+          if (d.getDate() === 1 || d.getDate() === 16) count++;
+          d.setDate(d.getDate() + 1);
+        }
+        return count;
+      }
+
+      function valorActual(base) {
+        var n = contarPeriodosCambio();
+        return Math.round(base * Math.pow(1.005, n));
+      }
 
       const modelo = document.getElementById('modelo');
-      const ventas = document.getElementById('ventas');
-      const ticket = document.getElementById('ticket');
-      const ventasValue = document.getElementById('ventas-value');
-      const ticketValue = document.getElementById('ticket-value');
+      const productoChoripan = document.getElementById('producto-choripan');
+      const productoArepa = document.getElementById('producto-arepa');
+      const productoChoripanValue = document.getElementById('producto-choripan-value');
+      const productoArepaValue = document.getElementById('producto-arepa-value');
+      const ventasTotalEl = document.getElementById('ventas-total');
       const ingresosEl = document.getElementById('ingresos');
       const costosEl = document.getElementById('costos');
       const utilidadEl = document.getElementById('utilidad');
       const roiEl = document.getElementById('roi');
 
+      const PRECIO_CHORIPAN = 9000;
+      const PRECIO_AREPA = 9000;
+
+      // Rellenar select con valores actualizados
+      modelo.innerHTML = MODELOS.map(function (m) {
+        const valor = valorActual(m.base);
+        return '<option value="' + valor + '">' + m.label + ' — ' + formatoCOP(valor) + '</option>';
+      }).join('');
+
       function actualizar() {
         const inversion = Number(modelo.value);
-        const ventasDia = Number(ventas.value);
-        const ticketPromedio = Number(ticket.value);
+        const qtyChoripan = Number(productoChoripan.value);
+        const qtyArepa = Number(productoArepa.value);
+        const ventasDia = qtyChoripan + qtyArepa;
+        const ingresosDiarios = qtyChoripan * PRECIO_CHORIPAN + qtyArepa * PRECIO_AREPA;
 
-        ventasValue.textContent = ventasDia;
-        ticketValue.textContent = formatoCOP(ticketPromedio);
+        productoChoripanValue.textContent = qtyChoripan;
+        productoArepaValue.textContent = qtyArepa;
+        ventasTotalEl.textContent = ventasDia + ' unidades';
 
-        const ingresosBrutos = ventasDia * ticketPromedio * 30;
+        const ingresosBrutos = Math.round(ingresosDiarios * 30);
         const costosOperativos = Math.round(ingresosBrutos * 0.65);
         const utilidadNeta = ingresosBrutos - costosOperativos;
         const roiMeses = utilidadNeta > 0 ? (inversion / utilidadNeta).toFixed(1) : '—';
@@ -174,8 +311,8 @@
       }
 
       modelo.addEventListener('change', actualizar);
-      ventas.addEventListener('input', actualizar);
-      ticket.addEventListener('input', actualizar);
+      productoChoripan.addEventListener('input', actualizar);
+      productoArepa.addEventListener('input', actualizar);
 
       actualizar();
     })();
