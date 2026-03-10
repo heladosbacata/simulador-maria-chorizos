@@ -314,7 +314,7 @@
           Personal del punto de venta
         </p>
         <div class="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3 text-xs text-amber-900">
-          <strong>Según tus ventas (mensual):</strong> de <strong>0 a 20 millones</strong> una persona + medio turno; de <strong>20 millones en adelante</strong> dos personas tiempo completo. Costo por persona en Colombia con todo incluido: <strong>$2.744.387 COP</strong>/mes.
+          <strong>Según tus ventas (mensual):</strong> de <strong>0 a 25 millones</strong> una persona + medio turno; de <strong>25 millones en adelante</strong> dos personas tiempo completo. Costo por persona en Colombia con todo incluido: <strong>$2.744.387 COP</strong>/mes.
         </div>
         <div class="rounded-xl bg-trust-50 border border-trust-100 p-3 mb-2">
           <p class="text-xs text-trust-500 mb-1">Recomendación según tu proyección de ventas</p>
@@ -608,10 +608,10 @@
         const ingresosBrutos = Math.round(ingresosDiarios * 30);
         const gastoInsumos = Math.round(ingresosBrutos * 0.44);
 
-        // Personal según ventas: 0–20 M → 1 persona + medio turno; 20 M+ → 2 personas
+        // Personal según ventas: 0–25 M → 1 persona + medio turno; 25 M+ → 2 personas
         var equivalentePersonas = 1.5;
         var personalLabel = '1 persona + medio turno';
-        if (ingresosBrutos >= 20e6) {
+        if (ingresosBrutos >= 25e6) {
           equivalentePersonas = 2;
           personalLabel = '2 personas tiempo completo';
         } else {
