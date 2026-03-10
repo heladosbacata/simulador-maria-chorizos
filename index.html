@@ -127,6 +127,11 @@
       </p>
       <p class="mt-6 text-trust-600 text-sm md:text-base font-medium tracking-wide">Simulador de Rentabilidad</p>
       <p class="mt-1 text-trust-500 text-sm">Estima tu retorno de inversión en segundos</p>
+
+      <p class="mt-8 text-trust-500 text-xs font-medium uppercase tracking-wider">Menú completo para franquiciados</p>
+      <div class="mt-3 rounded-2xl overflow-hidden shadow-lg border border-trust-100 bg-white/80 max-w-2xl mx-auto">
+        <img src="assets/menu.png" alt="Menú María Chorizos - Chorizo Santarrosano, productos y para llevar" class="w-full h-auto object-contain" />
+      </div>
     </header>
 
     <div class="grid md:grid-cols-2 gap-6 lg:gap-10 items-start">
@@ -149,8 +154,8 @@
           Productos que vendes (ventas diarias)
         </p>
         <p class="text-xs text-trust-500 mb-2">Ajusta la barra para estimar cuántas unidades vendes al día.</p>
-        <div class="rounded-lg bg-calm-50/80 border border-calm-200/60 p-3 mb-4 text-xs text-trust-600">
-          <strong class="text-trust-700">Nota:</strong> El promedio diario actual a nivel nacional está en <strong>40 chorizos con pan</strong> y <strong>50 chorizos con arepa paisa</strong> como valor de referencia para sus cálculos.
+        <div id="nota-promedio" class="rounded-lg bg-calm-50/80 border border-calm-200/60 p-3 mb-4 text-xs text-trust-600">
+          <strong class="text-trust-700">Nota (Franquicia Express):</strong> El promedio diario a nivel nacional está en <strong>40 chorizos con pan</strong>, <strong>50 chorizos con arepa paisa</strong>, <strong>20 combos</strong> arepa de peto con queso y <strong>15 arepas de peto sola</strong> como referencia.
         </div>
 
         <!-- Producto 1: Chorizo con pan bimbo -->
@@ -185,9 +190,41 @@
           </div>
         </div>
 
+        <!-- Producto 3: Chorizo con arepa de peto con queso -->
+        <div class="mb-6 p-4 rounded-xl bg-trust-50/80 border border-trust-100">
+          <div class="flex gap-3 mb-3">
+            <img src="assets/productos/arepa-peto-queso.png" alt="Chorizo con arepa de peto con queso" class="w-16 h-16 md:w-20 md:h-20 rounded-lg object-cover flex-shrink-0" />
+            <div class="min-w-0 flex-1">
+              <p class="font-medium text-trust-800">Chorizo con arepa de peto con queso o queso bocadillo</p>
+              <p class="text-sm text-calm-600 font-semibold">$12.000 COP / combo</p>
+              <p class="text-xs text-trust-500 mt-1">Promedio diario: 20 combos. Ajusta la barra según tu estimado.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <input type="range" id="producto-peto" min="5" max="40" value="20" class="flex-1" />
+            <span id="producto-peto-value" class="text-calm-600 font-bold w-10 text-right">20</span>
+          </div>
+        </div>
+
+        <!-- Producto 4: Arepa de peto sola -->
+        <div class="mb-6 p-4 rounded-xl bg-trust-50/80 border border-trust-100">
+          <div class="flex gap-3 mb-3">
+            <img src="assets/productos/arepa-peto-sola.png" alt="Arepa de peto sola" class="w-16 h-16 md:w-20 md:h-20 rounded-lg object-cover flex-shrink-0" />
+            <div class="min-w-0 flex-1">
+              <p class="font-medium text-trust-800">Arepa de peto sola con queso mozzarella o queso bocadillo</p>
+              <p class="text-sm text-calm-600 font-semibold">$6.000 COP / unidad</p>
+              <p class="text-xs text-trust-500 mt-1">Ajusta la barra según tu estimado diario.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <input type="range" id="producto-peto-sola" min="10" max="80" value="15" class="flex-1" />
+            <span id="producto-peto-sola-value" class="text-calm-600 font-bold w-10 text-right">15</span>
+          </div>
+        </div>
+
         <div class="rounded-xl bg-calm-50 border border-calm-200/60 p-3 text-center">
           <p class="text-xs text-trust-500">Ventas diarias totales</p>
-          <p id="ventas-total" class="text-lg font-bold text-calm-600">90 unidades</p>
+          <p id="ventas-total" class="text-lg font-bold text-calm-600">125 unidades</p>
         </div>
       </section>
 
@@ -274,8 +311,12 @@
       const modelo = document.getElementById('modelo');
       const productoChoripan = document.getElementById('producto-choripan');
       const productoArepa = document.getElementById('producto-arepa');
+      const productoPeto = document.getElementById('producto-peto');
+      const productoPetoSola = document.getElementById('producto-peto-sola');
       const productoChoripanValue = document.getElementById('producto-choripan-value');
       const productoArepaValue = document.getElementById('producto-arepa-value');
+      const productoPetoValue = document.getElementById('producto-peto-value');
+      const productoPetoSolaValue = document.getElementById('producto-peto-sola-value');
       const ventasTotalEl = document.getElementById('ventas-total');
       const ingresosEl = document.getElementById('ingresos');
       const costosEl = document.getElementById('costos');
@@ -284,22 +325,69 @@
 
       const PRECIO_CHORIPAN = 9000;
       const PRECIO_AREPA = 9000;
+      const PRECIO_PETO = 12000;
+      const PRECIO_PETO_SOLA = 6000;
 
-      // Rellenar select con valores actualizados
+      // Rellenar select con valores actualizados (orden: Express, Isla, Local exterior)
       modelo.innerHTML = MODELOS.map(function (m) {
         const valor = valorActual(m.base);
         return '<option value="' + valor + '">' + m.label + ' — ' + formatoCOP(valor) + '</option>';
       }).join('');
 
+      // Promedios base (Franquicia Express) e Isla (+5%). Rangos min-max por modelo.
+      var DEFAULTS_EXPRESS = { choripan: 40, arepa: 50, peto: 20, petoSola: 15 };
+      var DEFAULTS_ISLA = { choripan: 42, arepa: 53, peto: 21, petoSola: 16 };
+      var RANGOS_EXPRESS = { choripan: [30, 60], arepa: [30, 60], peto: [5, 40], petoSola: [10, 80] };
+      var RANGOS_ISLA = { choripan: [32, 63], arepa: [32, 63], peto: [5, 42], petoSola: [11, 84] };
+      var NOTA_EXPRESS = '<strong class="text-trust-700">Nota (Franquicia Express):</strong> El promedio diario a nivel nacional está en <strong>40 chorizos con pan</strong>, <strong>50 chorizos con arepa paisa</strong>, <strong>20 combos</strong> arepa de peto con queso y <strong>15 arepas de peto sola</strong> como referencia.';
+      var NOTA_ISLA = '<strong class="text-trust-700">Nota (Franquicia Isla):</strong> En modelo Isla el promedio diario de ventas es aproximadamente <strong>5% superior</strong> por mayor afluencia. Valores de referencia: <strong>42</strong> chorizos con pan, <strong>53</strong> chorizos con arepa paisa, <strong>21</strong> combos arepa de peto con queso, <strong>16</strong> arepas de peto sola.';
+
+      var notaPromedioEl = document.getElementById('nota-promedio');
+
+      function aplicarPromediosPorModelo() {
+        var idx = modelo.selectedIndex;
+        var isIsla = (idx === 1);
+        var d = isIsla ? DEFAULTS_ISLA : DEFAULTS_EXPRESS;
+        var r = isIsla ? RANGOS_ISLA : RANGOS_EXPRESS;
+
+        productoChoripan.min = r.choripan[0];
+        productoChoripan.max = r.choripan[1];
+        productoArepa.min = r.arepa[0];
+        productoArepa.max = r.arepa[1];
+        productoPeto.min = r.peto[0];
+        productoPeto.max = r.peto[1];
+        productoPetoSola.min = r.petoSola[0];
+        productoPetoSola.max = r.petoSola[1];
+
+        productoChoripan.value = d.choripan;
+        productoArepa.value = d.arepa;
+        productoPeto.value = d.peto;
+        productoPetoSola.value = d.petoSola;
+        productoChoripanValue.textContent = d.choripan;
+        productoArepaValue.textContent = d.arepa;
+        productoPetoValue.textContent = d.peto;
+        productoPetoSolaValue.textContent = d.petoSola;
+        notaPromedioEl.innerHTML = isIsla ? NOTA_ISLA : NOTA_EXPRESS;
+      }
+
+      modelo.addEventListener('change', function () {
+        aplicarPromediosPorModelo();
+        actualizar();
+      });
+
       function actualizar() {
         const inversion = Number(modelo.value);
         const qtyChoripan = Number(productoChoripan.value);
         const qtyArepa = Number(productoArepa.value);
-        const ventasDia = qtyChoripan + qtyArepa;
-        const ingresosDiarios = qtyChoripan * PRECIO_CHORIPAN + qtyArepa * PRECIO_AREPA;
+        const qtyPeto = Number(productoPeto.value);
+        const qtyPetoSola = Number(productoPetoSola.value);
+        const ventasDia = qtyChoripan + qtyArepa + qtyPeto + qtyPetoSola;
+        const ingresosDiarios = qtyChoripan * PRECIO_CHORIPAN + qtyArepa * PRECIO_AREPA + qtyPeto * PRECIO_PETO + qtyPetoSola * PRECIO_PETO_SOLA;
 
         productoChoripanValue.textContent = qtyChoripan;
         productoArepaValue.textContent = qtyArepa;
+        productoPetoValue.textContent = qtyPeto;
+        productoPetoSolaValue.textContent = qtyPetoSola;
         ventasTotalEl.textContent = ventasDia + ' unidades';
 
         const ingresosBrutos = Math.round(ingresosDiarios * 30);
@@ -313,10 +401,16 @@
         roiEl.textContent = roiMeses === '—' ? '—' : '~' + roiMeses + ' meses';
       }
 
-      modelo.addEventListener('change', actualizar);
+      modelo.addEventListener('change', function () {
+        aplicarPromediosPorModelo();
+        actualizar();
+      });
       productoChoripan.addEventListener('input', actualizar);
       productoArepa.addEventListener('input', actualizar);
+      productoPeto.addEventListener('input', actualizar);
+      productoPetoSola.addEventListener('input', actualizar);
 
+      aplicarPromediosPorModelo();
       actualizar();
     })();
   </script>
