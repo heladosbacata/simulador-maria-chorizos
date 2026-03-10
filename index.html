@@ -468,9 +468,9 @@
       const formatoCOP = (n) =>
         new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n) + ' COP';
 
-      // Precios vigentes desde fechaBase. Hoy arrancan: Express $43.915.827, Isla $66.578.521, Local $95.764.795.
-      // Cada 15 días (día 1 y 16 de cada mes) suben automáticamente 0,5%. Fuente: precios-franquicias.json
-      var REFERENCIA_FECHA = new Date('2025-03-09T00:00:00');
+      // Precios base: Express $43.915.827, Isla $66.578.521, Local $95.764.795. Se muestran como vigentes hoy.
+      // Referencia = hoy para que el selector muestre estos importes; cada 15 días (día 1 y 16) suben 0,5%.
+      var REFERENCIA_FECHA = (function () { var d = new Date(); d.setHours(0, 0, 0, 0); return d; })();
       var MODELOS = [
         { label: 'Franquicia Express — 2×1 m²', base: 43915827 },
         { label: 'Franquicia Isla — 2×2 m²', base: 66578521 },
@@ -553,7 +553,7 @@
           .then(function (r) { return r.ok ? r.json() : null; })
           .then(function (data) {
             if (data && typeof data.express === 'number' && typeof data.isla === 'number' && typeof data.local === 'number') {
-              REFERENCIA_FECHA = data.fechaBase ? new Date(data.fechaBase + 'T00:00:00') : REFERENCIA_FECHA;
+              // Referencia se mantiene en "hoy" para mostrar los precios base vigentes
               MODELOS = [
                 { label: 'Franquicia Express — 2×1 m²', base: data.express },
                 { label: 'Franquicia Isla — 2×2 m²', base: data.isla },
