@@ -242,6 +242,20 @@
         </p>
         <p class="text-xs text-trust-500 mb-3">Referencia promedio en centros comerciales de Colombia.</p>
 
+        <p class="text-sm font-medium text-trust-700 mb-2 flex items-center gap-2">
+          <i class="fas fa-box-open text-calm-500"></i>
+          Insumos
+        </p>
+        <div class="rounded-lg bg-serene-green-light border border-serene-green/30 p-3 mb-4 text-xs text-trust-700">
+          <p class="font-semibold text-serene-green mb-1">Margen de utilidad del 56%</p>
+          <p>Los franquiciados cuentan con un margen realmente alto que permite una utilidad y retorno de inversión en corto plazo. El gasto en insumos equivale al 44% de tus ventas.</p>
+        </div>
+        <div class="rounded-xl bg-trust-50 border border-trust-100 p-3 mb-4">
+          <p class="text-xs text-trust-500 mb-1">Gasto en insumos (mensual)</p>
+          <p id="gasto-insumos-value" class="text-lg font-bold text-calm-600">$0 COP</p>
+          <p class="text-xs text-trust-400 mt-0.5">44% de tus ingresos brutos</p>
+        </div>
+
         <div class="rounded-lg bg-amber-100 border border-amber-200 p-3 mb-4 text-xs text-amber-900">
           <span class="mr-1" aria-hidden="true">💡</span> <strong>Promedio de arriendo según tu modelo:</strong> ajusta la barra según el canon de tu punto. Los valores mostrados son referencia con los valores que se pagan actualmente en nuestras franquicias; ten en cuenta que el valor se ajusta automáticamente según el tipo de franquicia.
         </div>
@@ -284,20 +298,14 @@
           Personal del punto de venta
         </p>
         <div class="rounded-lg bg-amber-50 border border-amber-200 p-3 mb-3 text-xs text-amber-900">
-          <strong>Recomendación:</strong> con ventas entre <strong>15 y 20 millones</strong> al mes se recomienda <strong>1 persona</strong>; de <strong>20 millones en adelante</strong>, <strong>2 personas</strong>. El costo incluye parafiscales en Colombia (prestaciones, seguridad social, caja de compensación, ICBF, SENA — ref. 2026).
+          <strong>Según tus ventas (mensual):</strong> de <strong>15 a 20 millones</strong> una sola persona; de <strong>20 a 28 millones</strong> una persona + medio turno; de <strong>28 millones en adelante</strong> dos personas tiempo completo. Costo por persona en Colombia con todo incluido: <strong>$2.744.387 COP</strong>/mes.
         </div>
-        <p class="text-xs text-trust-500 mb-2">Elige cuántas personas tendrás en tu punto:</p>
-        <div class="flex gap-3 mb-2">
-          <button type="button" id="personal-1" class="personal-btn flex-1 flex flex-col items-center justify-center gap-1 rounded-xl border-2 py-3 px-4 font-semibold transition border-calm-500 bg-calm-100 text-calm-700" data-num="1" aria-pressed="true">
-            <i class="fas fa-user text-2xl text-calm-500"></i>
-            <span>1 persona</span>
-          </button>
-          <button type="button" id="personal-2" class="personal-btn flex-1 flex flex-col items-center justify-center gap-1 rounded-xl border-2 border-trust-200 bg-white py-3 px-4 text-trust-600 font-semibold transition hover:border-calm-400 hover:bg-calm-50" data-num="2" aria-pressed="false">
-            <i class="fas fa-user-friends text-2xl text-trust-400"></i>
-            <span>2 personas</span>
-          </button>
+        <div class="rounded-xl bg-trust-50 border border-trust-100 p-3 mb-2">
+          <p class="text-xs text-trust-500 mb-1">Recomendación según tu proyección de ventas</p>
+          <p id="personal-scenario-label" class="text-base font-bold text-calm-600">1 persona</p>
+          <p class="text-xs text-trust-400 mt-1">Costo total personal (mensual): <strong id="gasto-personal-total" class="text-trust-700">$2.744.387 COP</strong></p>
         </div>
-        <p class="text-xs text-trust-400">Costo mensual por persona (con parafiscales, ref. 2026): <strong id="costo-personal-unit">$2.200.000 COP</strong></p>
+        <p class="text-xs text-trust-400">Costo mensual por persona (todo incluido en Colombia): <strong id="costo-personal-unit">$2.744.387 COP</strong></p>
       </section>
 
       <!-- Columna Derecha: Resultados -->
@@ -313,8 +321,9 @@
             <p id="ingresos" class="text-xl font-bold text-trust-800">$22.500.000 COP</p>
           </div>
           <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
-            <p class="text-sm text-trust-500 mb-1">Costos Operativos (65%)</p>
-            <p id="costos" class="text-xl font-bold text-trust-700">$14.625.000 COP</p>
+            <p class="text-sm text-trust-500 mb-1">Gasto en insumos (44%)</p>
+            <p id="resultado-insumos" class="text-xl font-bold text-trust-700">$9.900.000 COP</p>
+            <p class="text-xs text-trust-400 mt-0.5">Margen bruto 56%</p>
           </div>
           <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
             <p class="text-sm text-trust-500 mb-1">Arriendo (mensual)</p>
@@ -334,7 +343,7 @@
           </div>
           <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
             <p class="text-sm text-trust-500 mb-1">Personal del punto (mensual)</p>
-            <p id="resultado-personal" class="text-xl font-bold text-trust-700">$2.200.000 COP</p>
+            <p id="resultado-personal" class="text-xl font-bold text-trust-700">$2.744.387 COP</p>
           </div>
           <div class="rounded-xl bg-serene-green-light border border-serene-green p-4 ring-2 ring-serene-green">
             <p class="text-sm text-trust-600 mb-1">Utilidad Neta Estimada (mensual)</p>
@@ -412,7 +421,8 @@
       const ventasTotalEl = document.getElementById('ventas-total');
       const resumenVentasDiaEl = document.getElementById('resumen-ventas-dia');
       const ingresosEl = document.getElementById('ingresos');
-      const costosEl = document.getElementById('costos');
+      const resultadoInsumosEl = document.getElementById('resultado-insumos');
+      const gastoInsumosValueEl = document.getElementById('gasto-insumos-value');
       const utilidadEl = document.getElementById('utilidad');
       const roiEl = document.getElementById('roi');
       const gastoArriendo = document.getElementById('gasto-arriendo');
@@ -426,10 +436,11 @@
       const resultadoAgua = document.getElementById('resultado-agua');
       const resultadoInternet = document.getElementById('resultado-internet');
       const resultadoPersonal = document.getElementById('resultado-personal');
+      const personalScenarioLabel = document.getElementById('personal-scenario-label');
+      const gastoPersonalTotal = document.getElementById('gasto-personal-total');
 
       const GASTO_INTERNET_FIJO = 35000;
-      var COSTO_POR_TRABAJADOR_MES = 2200000;
-      var numPersonas = 1;
+      const COSTO_POR_TRABAJADOR_MES = 2744387;
       const arriendoRangoEl = document.getElementById('arriendo-rango');
 
       const PRECIO_CHORIPAN = 9000;
@@ -528,15 +539,35 @@
         resultadoLuz.textContent = formatoCOP(luz);
         resultadoAgua.textContent = formatoCOP(agua);
         resultadoInternet.textContent = formatoCOP(GASTO_INTERNET_FIJO);
-        resultadoPersonal.textContent = formatoCOP(numPersonas * COSTO_POR_TRABAJADOR_MES);
 
         const ingresosBrutos = Math.round(ingresosDiarios * 30);
-        const costosOperativos = Math.round(ingresosBrutos * 0.65);
-        const utilidadNeta = Math.round(ingresosBrutos - costosOperativos - arriendo - luz - agua - GASTO_INTERNET_FIJO - numPersonas * COSTO_POR_TRABAJADOR_MES);
+        const gastoInsumos = Math.round(ingresosBrutos * 0.44);
+
+        // Personal según ventas: 15–20 M 1 persona; 20–28 M 1 + medio turno; 28 M+ 2 personas
+        var equivalentePersonas = 1;
+        var personalLabel = '1 persona';
+        if (ingresosBrutos >= 28e6) {
+          equivalentePersonas = 2;
+          personalLabel = '2 personas tiempo completo';
+        } else if (ingresosBrutos >= 20e6) {
+          equivalentePersonas = 1.5;
+          personalLabel = '1 persona + medio turno';
+        } else if (ingresosBrutos >= 15e6) {
+          equivalentePersonas = 1;
+          personalLabel = '1 persona';
+        }
+        const costoPersonal = Math.round(equivalentePersonas * COSTO_POR_TRABAJADOR_MES);
+
+        personalScenarioLabel.textContent = personalLabel;
+        gastoPersonalTotal.textContent = formatoCOP(costoPersonal);
+        resultadoPersonal.textContent = formatoCOP(costoPersonal);
+
+        const utilidadNeta = Math.round(ingresosBrutos - gastoInsumos - arriendo - luz - agua - GASTO_INTERNET_FIJO - costoPersonal);
         const roiMeses = utilidadNeta > 0 ? (inversion / utilidadNeta).toFixed(1) : '—';
 
         ingresosEl.textContent = formatoCOP(ingresosBrutos);
-        costosEl.textContent = formatoCOP(costosOperativos);
+        resultadoInsumosEl.textContent = formatoCOP(gastoInsumos);
+        gastoInsumosValueEl.textContent = formatoCOP(gastoInsumos);
         utilidadEl.textContent = formatoCOP(utilidadNeta);
         roiEl.textContent = roiMeses === '—' ? '—' : '~' + roiMeses + ' meses';
       }
@@ -552,19 +583,6 @@
       gastoArriendo.addEventListener('input', actualizar);
       gastoLuz.addEventListener('input', actualizar);
       gastoAgua.addEventListener('input', actualizar);
-
-      document.querySelectorAll('.personal-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          numPersonas = parseInt(this.getAttribute('data-num'), 10);
-          document.querySelectorAll('.personal-btn').forEach(function (b) {
-            var sel = parseInt(b.getAttribute('data-num'), 10) === numPersonas;
-            b.setAttribute('aria-pressed', sel ? 'true' : 'false');
-            b.className = 'personal-btn flex-1 flex flex-col items-center justify-center gap-1 rounded-xl border-2 py-3 px-4 font-semibold transition ' + (sel ? 'border-calm-500 bg-calm-100 text-calm-700' : 'border-trust-200 bg-white text-trust-600 hover:border-calm-400 hover:bg-calm-50');
-            b.querySelector('i').className = 'fas ' + (b.getAttribute('data-num') === '1' ? 'fa-user' : 'fa-user-friends') + ' text-2xl ' + (sel ? 'text-calm-500' : 'text-trust-400');
-          });
-          actualizar();
-        });
-      });
 
       aplicarPromediosPorModelo();
       actualizar();
