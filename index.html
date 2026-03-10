@@ -99,6 +99,11 @@
   </style>
 </head>
 <body class="min-h-screen font-sans text-trust-700 antialiased" style="background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);">
+  <!-- Nota recomendación visualización -->
+  <div class="bg-red-600 text-white text-center py-2 px-4 text-sm font-medium">
+    Como recomendación para una mejor visualización, abre este simulador en un computador o tablet.
+  </div>
+
   <!-- Logo en esquina superior izquierda -->
   <div class="fixed top-4 left-4 z-10 md:top-6 md:left-6">
     <img 
@@ -226,6 +231,34 @@
           <p class="text-xs text-trust-500">Ventas diarias totales</p>
           <p id="ventas-total" class="text-lg font-bold text-calm-600">125 unidades</p>
         </div>
+
+        <p class="text-sm font-medium text-trust-700 mt-8 mb-3 flex items-center gap-2">
+          <i class="fas fa-file-invoice-dollar text-calm-500"></i>
+          Gastos de la franquicia (mensual)
+        </p>
+        <p class="text-xs text-trust-500 mb-3">Referencia promedio en centros comerciales de Colombia.</p>
+
+        <div class="rounded-lg bg-amber-100 border border-amber-200 p-3 mb-4 text-xs text-amber-900">
+          <span class="mr-1" aria-hidden="true">💡</span> <strong>Promedio de arriendo según tu modelo:</strong> ajusta la barra según el canon de tu punto. Los valores mostrados son referencia con los valores que se pagan actualmente en nuestras franquicias; ten en cuenta que el valor se ajusta automáticamente según el tipo de franquicia.
+        </div>
+
+        <div class="mb-5">
+          <div class="flex justify-between items-center mb-1">
+            <label for="gasto-arriendo" class="text-sm font-medium text-trust-600">Arriendo (mensual)</label>
+            <span id="gasto-arriendo-value" class="text-calm-600 font-semibold">$3.000.000 COP</span>
+          </div>
+          <input type="range" id="gasto-arriendo" min="2500000" max="3500000" step="100000" value="3000000" class="w-full" />
+          <p id="arriendo-rango" class="text-xs text-trust-500 mt-1">Rango de referencia para tu modelo: Express $2.5M – $3.5M</p>
+        </div>
+
+        <div class="mb-4">
+          <div class="flex justify-between items-center mb-1">
+            <label for="gasto-luz" class="text-sm font-medium text-trust-600">Servicio de luz</label>
+            <span id="gasto-luz-value" class="text-calm-600 font-semibold">$0 COP</span>
+          </div>
+          <input type="range" id="gasto-luz" min="0" max="300000" step="10000" value="0" class="w-full" />
+          <p class="text-xs text-trust-400 mt-1">En islas de C.C. el 90% no cobra luz (incluida en arriendo). Ajuste si su centro sí la cobra (0 – $300.000).</p>
+        </div>
       </section>
 
       <!-- Columna Derecha: Resultados -->
@@ -243,6 +276,14 @@
           <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
             <p class="text-sm text-trust-500 mb-1">Costos Operativos (65%)</p>
             <p id="costos" class="text-xl font-bold text-trust-700">$14.625.000 COP</p>
+          </div>
+          <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
+            <p class="text-sm text-trust-500 mb-1">Arriendo (mensual)</p>
+            <p id="resultado-arriendo" class="text-xl font-bold text-trust-700">$3.000.000 COP</p>
+          </div>
+          <div class="rounded-xl bg-trust-50/80 border border-trust-100 p-4">
+            <p class="text-sm text-trust-500 mb-1">Servicio de luz (mensual)</p>
+            <p id="resultado-luz" class="text-xl font-bold text-trust-700">$0 COP</p>
           </div>
           <div class="rounded-xl bg-serene-green-light border border-serene-green p-4 ring-2 ring-serene-green">
             <p class="text-sm text-trust-600 mb-1">Utilidad Neta Estimada (mensual)</p>
@@ -322,6 +363,13 @@
       const costosEl = document.getElementById('costos');
       const utilidadEl = document.getElementById('utilidad');
       const roiEl = document.getElementById('roi');
+      const gastoArriendo = document.getElementById('gasto-arriendo');
+      const gastoLuz = document.getElementById('gasto-luz');
+      const gastoArriendoValue = document.getElementById('gasto-arriendo-value');
+      const gastoLuzValue = document.getElementById('gasto-luz-value');
+      const resultadoArriendo = document.getElementById('resultado-arriendo');
+      const resultadoLuz = document.getElementById('resultado-luz');
+      const arriendoRangoEl = document.getElementById('arriendo-rango');
 
       const PRECIO_CHORIPAN = 9000;
       const PRECIO_AREPA = 9000;
@@ -334,21 +382,28 @@
         return '<option value="' + valor + '">' + m.label + ' — ' + formatoCOP(valor) + '</option>';
       }).join('');
 
-      // Promedios base (Franquicia Express) e Isla (+5%). Rangos min-max por modelo.
+      // Promedios: Express (base), Isla (+5%), Local exterior (+10%). Rangos min-max por modelo.
       var DEFAULTS_EXPRESS = { choripan: 40, arepa: 50, peto: 20, petoSola: 15 };
       var DEFAULTS_ISLA = { choripan: 42, arepa: 53, peto: 21, petoSola: 16 };
+      var DEFAULTS_LOCAL = { choripan: 44, arepa: 55, peto: 22, petoSola: 17 };
       var RANGOS_EXPRESS = { choripan: [30, 60], arepa: [30, 60], peto: [5, 40], petoSola: [10, 80] };
       var RANGOS_ISLA = { choripan: [32, 63], arepa: [32, 63], peto: [5, 42], petoSola: [11, 84] };
+      var RANGOS_LOCAL = { choripan: [33, 66], arepa: [33, 66], peto: [6, 44], petoSola: [11, 88] };
       var NOTA_EXPRESS = '<strong class="text-trust-700">Nota (Franquicia Express):</strong> El promedio diario a nivel nacional está en <strong>40 chorizos con pan</strong>, <strong>50 chorizos con arepa paisa</strong>, <strong>20 combos</strong> arepa de peto con queso y <strong>15 arepas de peto sola</strong> como referencia.';
       var NOTA_ISLA = '<strong class="text-trust-700">Nota (Franquicia Isla):</strong> En modelo Isla el promedio diario de ventas es aproximadamente <strong>5% superior</strong> por mayor afluencia. Valores de referencia: <strong>42</strong> chorizos con pan, <strong>53</strong> chorizos con arepa paisa, <strong>21</strong> combos arepa de peto con queso, <strong>16</strong> arepas de peto sola.';
+      var NOTA_LOCAL = '<strong class="text-trust-700">Nota (Local exterior):</strong> En local de 30 a 50 m² el promedio diario de ventas es aproximadamente <strong>10% superior</strong> a una Express. Valores de referencia: <strong>44</strong> chorizos con pan, <strong>55</strong> chorizos con arepa paisa, <strong>22</strong> combos arepa de peto con queso, <strong>17</strong> arepas de peto sola.';
+
+      var ARRIENDO_EXPRESS = { min: 2500000, max: 3500000, value: 3000000, label: 'Rango de referencia para tu modelo: Express $2.5M – $3.5M' };
+      var ARRIENDO_ISLA = { min: 4500000, max: 6000000, value: 5250000, label: 'Rango de referencia para tu modelo: Isla $4.5M – $6M' };
+      var ARRIENDO_LOCAL = { min: 3000000, max: 5000000, value: 4000000, label: 'Rango de referencia para tu modelo: Local exterior $3M – $5M' };
 
       var notaPromedioEl = document.getElementById('nota-promedio');
 
       function aplicarPromediosPorModelo() {
         var idx = modelo.selectedIndex;
-        var isIsla = (idx === 1);
-        var d = isIsla ? DEFAULTS_ISLA : DEFAULTS_EXPRESS;
-        var r = isIsla ? RANGOS_ISLA : RANGOS_EXPRESS;
+        var d = (idx === 1) ? DEFAULTS_ISLA : (idx === 2) ? DEFAULTS_LOCAL : DEFAULTS_EXPRESS;
+        var r = (idx === 1) ? RANGOS_ISLA : (idx === 2) ? RANGOS_LOCAL : RANGOS_EXPRESS;
+        var nota = (idx === 1) ? NOTA_ISLA : (idx === 2) ? NOTA_LOCAL : NOTA_EXPRESS;
 
         productoChoripan.min = r.choripan[0];
         productoChoripan.max = r.choripan[1];
@@ -367,7 +422,14 @@
         productoArepaValue.textContent = d.arepa;
         productoPetoValue.textContent = d.peto;
         productoPetoSolaValue.textContent = d.petoSola;
-        notaPromedioEl.innerHTML = isIsla ? NOTA_ISLA : NOTA_EXPRESS;
+        notaPromedioEl.innerHTML = nota;
+
+        var arr = (idx === 1) ? ARRIENDO_ISLA : (idx === 2) ? ARRIENDO_LOCAL : ARRIENDO_EXPRESS;
+        gastoArriendo.min = arr.min;
+        gastoArriendo.max = arr.max;
+        gastoArriendo.value = arr.value;
+        gastoArriendoValue.textContent = formatoCOP(arr.value);
+        arriendoRangoEl.textContent = arr.label;
       }
 
       modelo.addEventListener('change', function () {
@@ -390,9 +452,16 @@
         productoPetoSolaValue.textContent = qtyPetoSola;
         ventasTotalEl.textContent = ventasDia + ' unidades';
 
+        const arriendo = Number(gastoArriendo.value);
+        const luz = Number(gastoLuz.value);
+        gastoArriendoValue.textContent = formatoCOP(arriendo);
+        gastoLuzValue.textContent = formatoCOP(luz);
+        resultadoArriendo.textContent = formatoCOP(arriendo);
+        resultadoLuz.textContent = formatoCOP(luz);
+
         const ingresosBrutos = Math.round(ingresosDiarios * 30);
         const costosOperativos = Math.round(ingresosBrutos * 0.65);
-        const utilidadNeta = ingresosBrutos - costosOperativos;
+        const utilidadNeta = Math.round(ingresosBrutos - costosOperativos - arriendo - luz);
         const roiMeses = utilidadNeta > 0 ? (inversion / utilidadNeta).toFixed(1) : '—';
 
         ingresosEl.textContent = formatoCOP(ingresosBrutos);
@@ -409,6 +478,8 @@
       productoArepa.addEventListener('input', actualizar);
       productoPeto.addEventListener('input', actualizar);
       productoPetoSola.addEventListener('input', actualizar);
+      gastoArriendo.addEventListener('input', actualizar);
+      gastoLuz.addEventListener('input', actualizar);
 
       aplicarPromediosPorModelo();
       actualizar();
